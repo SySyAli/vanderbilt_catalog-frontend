@@ -1,26 +1,35 @@
 import Button from '@mui/material/Button';
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField
-} from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, TextField, ListItemButton } from '@mui/material';
 import {
   List,
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
   CircularProgress,
+  IconButton,
+  DialogActions,
 } from '@mui/material';
-
+import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from '@mui/icons-material/Add';
 import { useState, useEffect } from 'preact/hooks';
-
+/*
+interface Course {
+  _id: String;
+  code: String;
+  name: String;
+  department: String;
+  departmentAbbreviation: String;
+  hours: String;
+  description: String;
+}
+*/
 export function CourseSearchDialog() {
   const [open, setOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [apiResults, setApiResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
+  const [courseDialogOpen, setCourseDialogOpen] = useState(false);
 
   const handleOpenDialog = () => {
     setOpen(true);
@@ -34,6 +43,14 @@ export function CourseSearchDialog() {
     setSearchText(event.target.value);
   };
 
+  const handleResultClick = (course: any) => {
+    setSelectedCourse(course);
+    setCourseDialogOpen(true);
+  };
+
+  const handleCloseCourseDialog = () => {
+    setCourseDialogOpen(false);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,7 +87,12 @@ export function CourseSearchDialog() {
         aria-describedby="dialog-description"
         fullWidth
       >
-        <DialogTitle id="dialog-title">Add a Course</DialogTitle>
+        <DialogTitle id="dialog-title">
+          <IconButton onClick={handleCloseDialog} aria-label="close-dialog">
+            <CloseIcon />
+          </IconButton>
+          Add a Course
+        </DialogTitle>
 
         <DialogContent id="dialog-description">
           <TextField
@@ -85,7 +107,32 @@ export function CourseSearchDialog() {
             <List>
               {apiResults.map((result: any) => (
                 <ListItem key={result._id}>
-                  <ListItemText primary={result.code + ': ' + result.name} />
+                  <ListItemButton>
+                    <IconButton onClick={handleCloseDialog} variant="outlined" aria-label="add-course">
+                      <AddIcon />
+                    </IconButton>
+                  </ListItemButton>
+
+                  <ListItemButton onClick={() => handleResultClick(result)}>
+                    <ListItemText primary={result.code + ': ' + result.name} />
+                  </ListItemButton>
+
+                  {selectedCourse && (
+                    <Dialog open={courseDialogOpen} onClose={handleCloseCourseDialog}>
+                      <DialogTitle>Course Information</DialogTitle>
+                      <DialogContent>
+                        <h1>{selectedCourse.code + ': ' + selectedCourse.name}</h1>
+                        <h2>{'Department: ' + selectedCourse.department}</h2>
+                        <h2>{'Hours: ' + selectedCourse.hours}</h2>
+                        <p>{'Description: ' + selectedCourse.description}</p>
+                        {/* Display additional course information here */}
+                      </DialogContent>
+                      <DialogActions>
+                        <Button variant="outlined" onClick={handleCloseCourseDialog}>Close</Button>
+                      </DialogActions>
+                    </Dialog>
+                  )}
+
                   <ListItemSecondaryAction>
                     {/* Additional actions for each result */}
                   </ListItemSecondaryAction>
@@ -94,11 +141,6 @@ export function CourseSearchDialog() {
             </List>
           )}
         </DialogContent>
-
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button>Add</Button>
-        </DialogActions>
       </Dialog>
     </div>
   );
