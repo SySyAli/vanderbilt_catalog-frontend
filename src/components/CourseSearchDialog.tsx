@@ -1,20 +1,19 @@
 /*
-  Description: This component is a dialog that allows the user to search for a course and send the selected course to the parent component
-*/
+ * CourseSearchDialog.tsx
+ * Description: This component is a dialog that allows the user to search for a course and send the selected course to the parent component
+ */
 
 import Button from '@mui/material/Button';
 import { Dialog, DialogTitle, DialogContent, TextField, ListItemButton } from '@mui/material';
-import {
-  List,
-  ListItem,
-  ListItemText,
-  CircularProgress,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import { List, ListItem, CircularProgress, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
 import { useState, useEffect } from 'preact/hooks';
+import { useRecoilState } from 'recoil';
+
+import { CourseViewDialog } from './CourseViewDialog';
+import { openCourseDialog, searchTextDialog, apiResultsDialog, loadingDialog } from './atoms';
+
 /*
 interface Course {
   _id: String;
@@ -31,9 +30,12 @@ export function CourseSearchDialog({ handleSelectedCourse }: any) {
   const [searchText, setSearchText] = useState('');
   const [apiResults, setApiResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState<any>(null);
-  const [courseDialogOpen, setCourseDialogOpen] = useState(false);
-
+  /*
+  const [open, setOpen] = useRecoilState(openCourseDialog);
+  const [searchText, setSearchText] = useRecoilState(searchTextDialog);
+  const [apiResults, setApiResults] = useRecoilState(apiResultsDialog);
+  const [loading, setLoading] = useRecoilState(loadingDialog);
+  */
   const handleOpenDialog = () => {
     setOpen(true);
   };
@@ -41,7 +43,7 @@ export function CourseSearchDialog({ handleSelectedCourse }: any) {
   const handleCloseDialog = () => {
     setOpen(false);
   };
-
+  // to be implemented using recoil...
   const handleAddCourse = (course: any) => {
     // send selected course to parent component
     handleSelectedCourse(course);
@@ -53,22 +55,11 @@ export function CourseSearchDialog({ handleSelectedCourse }: any) {
     setSearchText(event.target.value);
   };
 
-  const handleResultClick = (course: any) => {
-    setSelectedCourse(course);
-    setCourseDialogOpen(true);
-  };
-
-  const handleCloseCourseDialog = () => {
-    setCourseDialogOpen(false);
-  };
-
   useEffect(() => {
     if (!open) {
       setSearchText('');
       setApiResults([]);
       setLoading(false);
-      setSelectedCourse(null);
-      setCourseDialogOpen(false);
     }
   }, [open]);
 
@@ -137,39 +128,7 @@ export function CourseSearchDialog({ handleSelectedCourse }: any) {
                     </IconButton>
                   </ListItemButton>
 
-                  <ListItemButton onClick={() => handleResultClick(result)}>
-                    <ListItemText primary={result.code + ': ' + result.name} />
-                  </ListItemButton>
-                
-                  {selectedCourse && (
-                    <Dialog open={courseDialogOpen} onClose={handleCloseCourseDialog} spacing={2}>
-                      <DialogTitle id="dialog-title">
-                        <IconButton onClick={handleCloseCourseDialog} aria-label="close-dialog">
-                          <CloseIcon />
-                        </IconButton>
-                        Course Information
-                      </DialogTitle>
-                      <DialogContent>
-                        <Typography
-                          variant="h5"
-                          component="div"
-                          sx={{ flexGrow: 1, fontWeight: 'bold' }}
-                        >
-                          {selectedCourse.code + ': ' + selectedCourse.name}
-                        </Typography>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                          {'Department: ' + selectedCourse.department}
-                        </Typography>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                          {'Hours: ' + selectedCourse.hours}
-                        </Typography>
-                        <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
-                          {'Description: ' + selectedCourse.description}
-                        </Typography>
-                        {/* Display additional course information here */}
-                      </DialogContent>
-                    </Dialog>
-                  )}
+                  <CourseViewDialog course={result} />
                 </ListItem>
               ))}
             </List>

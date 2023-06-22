@@ -2,13 +2,16 @@ import { render } from 'preact';
 import { Home } from './home.tsx';
 import Router from 'preact-router';
 import { About } from './about.tsx';
+import { RecoilRoot } from 'recoil';
 
 const Main = () => (
   <div id="app">
-    <Router>
-      <Home path="/" />
-      <About path="/about" />
-    </Router>
+    <RecoilRoot>
+      <Router>
+        <Home path="/" />
+        <About path="/about" />
+      </Router>
+    </RecoilRoot>
   </div>
 );
 

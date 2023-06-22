@@ -1,18 +1,31 @@
+/*
+ * Possibility.tsx
+ * Description: This component is a possibility component that is used to display the courses that the user has selected
+ * and to allow the user to search for courses to add to the possibility.
+ */
+
 import Stack from '@mui/material/Stack';
-import { Dialog, DialogTitle, DialogContent } from '@mui/material';
-import { IconButton, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { IconButton, List, ListItem } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
-
-import { CourseSearchDialog } from './CourseSearchDialog';
 import { useState } from 'preact/hooks';
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 
-export function Possibility({id, removePossibility}: any) {
-  const [ID, setID] = useState<any>(id)
+import { possibilityArray, coursesSelectedArray, idFORPossibility } from './atoms';
+import { CourseSearchDialog } from './CourseSearchDialog';
+import { CourseViewDialog } from './CourseViewDialog';
+
+export function Possibility({ id }: any) {
+  const setPossibillityArray = useSetRecoilState(possibilityArray);
+  const possibillityArray = useRecoilValue(possibilityArray);
+  // making this into recoil state breaks everything
+  const [ID, setID] = useState<any>(id);
   const [coursesSelected, setCoursesSelected] = useState<any>([]);
-  const [selectedCourse, setSelectedCourse] = useState<any>(null);
-  const [courseDialogOpen, setCourseDialogOpen] = useState(false);
+  //const setCoursesSelected = useSetRecoilState(coursesSelectedArray);
+  //const coursesSelected = useRecoilValue(coursesSelectedArray);
+
+  setID(id);
 
   const handleSelectedCourse = (course: any) => {
     console.log(course);
@@ -31,18 +44,30 @@ export function Possibility({id, removePossibility}: any) {
     });
   };
 
-  const handleResultClick = (course: any) => {
-    setSelectedCourse(course);
-    setCourseDialogOpen(true);
-  };
-
-  const handleCloseCourseDialog = () => {
-    setCourseDialogOpen(false);
-  };
-
+  // TODO: THIS DOES NOT WORK
   const handleRemovePossibility = () => {
-    // remove possibility from parent component by passing component itself to removePossibility function
-    removePossibility(ID)
+    // get index of current possibility
+    console.log(ID);
+
+    const currIndex = possibillityArray.findIndex(
+      (possibility: any) => possibility.props.id === ID,
+    );
+    console.log(possibillityArray);
+    console.log(currIndex);
+    console.log(possibillityArray[currIndex]);
+
+    // remove current possibility from possibilities
+    const newArray = removeItemAtIndex(possibillityArray, currIndex);
+    // update possibilities
+    //setPossibillityArray(newArray);
+    // remove current possibility from possibilities based upon ID
+    setPossibillityArray((oldValues: any) => {
+      return oldValues.filter((possibility: any) => possibility.props.id !== ID);
+    });
+  };
+
+  const removeItemAtIndex = (arr: any, index: any) => {
+    return [...arr.slice(0, index), ...arr.slice(index + 1)];
   };
 
   return (
@@ -61,43 +86,7 @@ export function Possibility({id, removePossibility}: any) {
               coursesSelected.map((course: any) => {
                 return (
                   <ListItem key={course._id}>
-                    <ListItemButton
-                      onClick={() => {
-                        handleResultClick(course);
-                      }}
-                    >
-                      <ListItemText primary={course.code + ': ' + course.name} />
-                    </ListItemButton>
-
-                    {selectedCourse && (
-                      <Dialog open={courseDialogOpen} onClose={handleCloseCourseDialog} spacing={2}>
-                        <DialogTitle id="dialog-title">
-                          <IconButton onClick={handleCloseCourseDialog} aria-label="close-dialog">
-                            <CloseIcon />
-                          </IconButton>
-                          Course Information
-                        </DialogTitle>
-                        <DialogContent>
-                          <Typography
-                            variant="h5"
-                            component="div"
-                            sx={{ flexGrow: 1, fontWeight: 'bold' }}
-                          >
-                            {selectedCourse.code + ': ' + selectedCourse.name}
-                          </Typography>
-                          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            {'Department: ' + selectedCourse.department}
-                          </Typography>
-                          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            {'Hours: ' + selectedCourse.hours}
-                          </Typography>
-                          <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
-                            {'Description: ' + selectedCourse.description}
-                          </Typography>
-                          {/* Display additional course information here */}
-                        </DialogContent>
-                      </Dialog>
-                    )}
+                    <CourseViewDialog course={course} />
                     <IconButton onClick={() => handleRemoveCourse(course)}>
                       <CloseIcon />
                     </IconButton>

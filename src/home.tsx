@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 
 import NavBar from './components/Navbar';
-import { Semester } from './components/semester';
+import { Semester } from './components/Semester';
 
 // TODO: Add State Management Library (TBD)
 // TODO: Fix all of the states

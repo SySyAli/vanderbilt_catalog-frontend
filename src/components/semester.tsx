@@ -1,31 +1,26 @@
+/*
+ * Semester.tsx
+ * Description: This component is used to create a semester object. It contains a semester date and a list of possibilities.
+ */
 import { Typography, Button, Box, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useState } from 'preact/hooks';
-import { Possibility } from './possibility';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 
+import { possibilityArray } from './atoms';
+import { Possibility } from './Possibility';
 // add functionality to remove possibility
 
 export function Semester() {
-  const [possibillityArray, setPossibillityArray] = useState<any>([]);
+  const setPossibillityArray = useSetRecoilState(possibilityArray);
+  const possibillityArray = useRecoilValue(possibilityArray);
 
   // random id generator for possibility
   const randomID = () => {
     return Math.floor(Math.random() * 1000000000);
   };
 
-  const removePossibility = (removePossibility: any) => {
-    // remove possibility from possibillityArray based upon ID from state in the possibility component
-    setPossibillityArray((oldValues: any) => {
-      return oldValues.filter((possibility: any) => possibility.props.id !== removePossibility);
-    });
-  };
-
   const handleAddPossibility = () => {
-    setPossibillityArray([
-      ...possibillityArray,
-      <Possibility id={randomID()} removePossibility={removePossibility} />,
-    ]);
-    console.log(possibillityArray);
+    setPossibillityArray((oldArray: any) => [...oldArray, <Possibility id={randomID()} />]);
   };
 
   return (
