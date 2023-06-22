@@ -45,8 +45,6 @@ export function CourseSearchDialog({handleSelectedCourse}: any) {
 
   const handleAddCourse = (course: any) => {
     // send selected course to parent component
-    console.log("CHILD")
-    console.log(course)
     handleSelectedCourse(course);
     // close the dialog
     handleCloseDialog();

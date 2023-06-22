@@ -10,9 +10,16 @@ export function Semester() {
   const [coursesSelected, setCoursesSelected] = useState<any>([]);
 
   const handleSelectedCourse = (course: any) => {
-    console.log('PARENT');
-    console.log(handleSelectedCourse);
-    setCoursesSelected([...coursesSelected, course]);
+    console.log(course);
+    console.log(coursesSelected)
+    // prevent duplicates
+    
+    if (coursesSelected.some((c: any) => c._id === course._id)) {
+      console.log('Course already selected');
+      return;
+    } else {
+      setCoursesSelected([...coursesSelected, course]);
+    }
   };
 
   const handleRemoveCourse = (removeCourse: any) => {
@@ -23,7 +30,6 @@ export function Semester() {
   };
 
   // TODO: add same course dialog box to this as well (make it a component)
-  // TODO: Prevent Duplicates
   // TODO: Add hours
   return (
     <div>
