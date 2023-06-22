@@ -9,18 +9,13 @@ import { IconButton, ListItem, ListItemButton, ListItemText } from '@mui/materia
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRecoilState } from 'recoil';
-import { useState } from 'preact/hooks';
 
 import { selectedCourseinDialog, courseDialogOpeninDialog } from './atoms';
 
 export function CourseViewDialog({ course }: any) {
-  const [selectedCourse, setSelectedCourse] = useState<any>(null);
-  const [courseDialogOpen, setCourseDialogOpen] = useState(false);
-  
-  /*
   const [selectedCourse, setSelectedCourse] = useRecoilState<any>(selectedCourseinDialog);
   const [courseDialogOpen, setCourseDialogOpen] = useRecoilState(courseDialogOpeninDialog);
-  */
+  
   const handleResultClick = (course: any) => {
     setSelectedCourse(course);
     setCourseDialogOpen(true);
@@ -62,7 +57,6 @@ export function CourseViewDialog({ course }: any) {
               <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
                 {'Description: ' + selectedCourse.description}
               </Typography>
-              {/* Display additional course information here */}
             </DialogContent>
           </Dialog>
         )}

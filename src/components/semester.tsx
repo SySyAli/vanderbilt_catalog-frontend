@@ -11,8 +11,8 @@ import { Possibility } from './Possibility';
 // add functionality to remove possibility
 
 export function Semester() {
-  const setPossibillityArray = useSetRecoilState(possibilityArray);
-  const possibillityArray = useRecoilValue(possibilityArray);
+  const setPossibilityArray = useSetRecoilState(possibilityArray);
+  const possibilityArraySem = useRecoilValue(possibilityArray);
 
   // random id generator for possibility
   const randomID = () => {
@@ -20,7 +20,13 @@ export function Semester() {
   };
 
   const handleAddPossibility = () => {
-    setPossibillityArray((oldArray: any) => [...oldArray, <Possibility id={randomID()} />]);
+    setPossibilityArray((oldArray: any) => [...oldArray, randomID()]);
+  };
+
+  const handleRemovePossibility = (id: number) => {
+    setPossibilityArray((oldArray: any) =>
+      oldArray.filter((possibility: number) => possibility !== id),
+    );
   };
 
   return (
@@ -30,7 +36,9 @@ export function Semester() {
           <Typography variant="h4" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
             Semester Date
           </Typography>
-          {possibillityArray}
+          {possibilityArraySem.map((id: number) => (
+            <Possibility key={id} id={id} handleRemovePossibility={handleRemovePossibility} />
+          ))}
           <Button onClick={handleAddPossibility} variant="outlined">
             <AddIcon />
             Add Possibility

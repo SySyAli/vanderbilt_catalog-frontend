@@ -26,16 +26,12 @@ interface Course {
 }
 */
 export function CourseSearchDialog({ handleSelectedCourse }: any) {
-  const [open, setOpen] = useState(false);
-  const [searchText, setSearchText] = useState('');
-  const [apiResults, setApiResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-  /*
+  
   const [open, setOpen] = useRecoilState(openCourseDialog);
   const [searchText, setSearchText] = useRecoilState(searchTextDialog);
   const [apiResults, setApiResults] = useRecoilState(apiResultsDialog);
   const [loading, setLoading] = useRecoilState(loadingDialog);
-  */
+  
   const handleOpenDialog = () => {
     setOpen(true);
   };
@@ -111,6 +107,7 @@ export function CourseSearchDialog({ handleSelectedCourse }: any) {
             value={searchText}
             onChange={handleSearchTextChange}
             fullWidth
+            autoFocus
           />
           {loading ? (
             <CircularProgress />

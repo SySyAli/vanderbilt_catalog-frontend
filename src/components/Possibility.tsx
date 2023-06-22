@@ -16,16 +16,9 @@ import { possibilityArray, coursesSelectedArray, idFORPossibility } from './atom
 import { CourseSearchDialog } from './CourseSearchDialog';
 import { CourseViewDialog } from './CourseViewDialog';
 
-export function Possibility({ id }: any) {
-  const setPossibillityArray = useSetRecoilState(possibilityArray);
-  const possibillityArray = useRecoilValue(possibilityArray);
-  // making this into recoil state breaks everything
-  const [ID, setID] = useState<any>(id);
+export function Possibility({ id, handleRemovePossibility }: any) {
+  const [possibilityArraySem, setPossibilityArray] = useRecoilState(possibilityArray);
   const [coursesSelected, setCoursesSelected] = useState<any>([]);
-  //const setCoursesSelected = useSetRecoilState(coursesSelectedArray);
-  //const coursesSelected = useRecoilValue(coursesSelectedArray);
-
-  setID(id);
 
   const handleSelectedCourse = (course: any) => {
     console.log(course);
@@ -44,30 +37,9 @@ export function Possibility({ id }: any) {
     });
   };
 
-  // TODO: THIS DOES NOT WORK
-  const handleRemovePossibility = () => {
-    // get index of current possibility
-    console.log(ID);
-
-    const currIndex = possibillityArray.findIndex(
-      (possibility: any) => possibility.props.id === ID,
-    );
-    console.log(possibillityArray);
-    console.log(currIndex);
-    console.log(possibillityArray[currIndex]);
-
-    // remove current possibility from possibilities
-    const newArray = removeItemAtIndex(possibillityArray, currIndex);
-    // update possibilities
-    //setPossibillityArray(newArray);
-    // remove current possibility from possibilities based upon ID
-    setPossibillityArray((oldValues: any) => {
-      return oldValues.filter((possibility: any) => possibility.props.id !== ID);
-    });
-  };
-
-  const removeItemAtIndex = (arr: any, index: any) => {
-    return [...arr.slice(0, index), ...arr.slice(index + 1)];
+  const removePossibility = () => {
+    setPossibilityArray((oldArray: any) => oldArray.filter((possibility: number) => possibility !== id));
+    handleRemovePossibility(id);
   };
 
   return (
@@ -76,10 +48,10 @@ export function Possibility({ id }: any) {
         <Stack direction="column" alignItems="center" justify="center" spacing={2}>
           <List>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-              <IconButton onClick={handleRemovePossibility}>
+              <IconButton onClick={removePossibility}>
                 <CloseIcon />
               </IconButton>
-              Possibility {ID}
+              Possibility {id}
             </Typography>
 
             {coursesSelected ? (
