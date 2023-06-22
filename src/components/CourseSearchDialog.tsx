@@ -1,10 +1,13 @@
+/*
+  Description: This component is a dialog that allows the user to search for a course and send the selected course to the parent component
+*/
+
 import Button from '@mui/material/Button';
 import { Dialog, DialogTitle, DialogContent, TextField, ListItemButton } from '@mui/material';
 import {
   List,
   ListItem,
   ListItemText,
-  ListItemSecondaryAction,
   CircularProgress,
   IconButton,
   DialogActions,
@@ -24,7 +27,7 @@ interface Course {
   description: String;
 }
 */
-export function CourseSearchDialog() {
+export function CourseSearchDialog({handleSelectedCourse}: any) {
   const [open, setOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [apiResults, setApiResults] = useState([]);
@@ -40,6 +43,15 @@ export function CourseSearchDialog() {
     setOpen(false);
   };
 
+  const handleAddCourse = (course: any) => {
+    // send selected course to parent component
+    console.log("CHILD")
+    console.log(course)
+    handleSelectedCourse(course);
+    // close the dialog
+    handleCloseDialog();
+  };
+
   const handleSearchTextChange = (event: any) => {
     setSearchText(event.target.value);
   };
@@ -52,6 +64,16 @@ export function CourseSearchDialog() {
   const handleCloseCourseDialog = () => {
     setCourseDialogOpen(false);
   };
+
+  useEffect(() => {
+    if (!open) {
+      setSearchText('');
+      setApiResults([]);
+      setLoading(false);
+      setSelectedCourse(null);
+      setCourseDialogOpen(false);
+    }
+  }, [open]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,8 +96,6 @@ export function CourseSearchDialog() {
 
     fetchData();
   }, [searchText]);
-
-  // add the selected course to a semester list
 
   return (
     <div>
@@ -112,7 +132,7 @@ export function CourseSearchDialog() {
                 <ListItem key={result._id}>
                   <ListItemButton>
                     <IconButton
-                      onClick={handleCloseDialog}
+                      onClick={() => handleAddCourse(result)}
                       variant="outlined"
                       aria-label="add-course"
                     >
@@ -135,25 +155,13 @@ export function CourseSearchDialog() {
                         >
                           {selectedCourse.code + ': ' + selectedCourse.name}
                         </Typography>
-                        <Typography
-                          variant="h6"
-                          component="div"
-                          sx={{ flexGrow: 1}}
-                        >
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                           {'Department: ' + selectedCourse.department}
                         </Typography>
-                        <Typography
-                          variant="h6"
-                          component="div"
-                          sx={{ flexGrow: 1}}
-                        >
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                           {'Hours: ' + selectedCourse.hours}
                         </Typography>
-                        <Typography
-                          variant="body1"
-                          component="div"
-                          sx={{ flexGrow: 1}}
-                        >
+                        <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
                           {'Description: ' + selectedCourse.description}
                         </Typography>
                         {/* Display additional course information here */}
@@ -165,7 +173,6 @@ export function CourseSearchDialog() {
                       </DialogActions>
                     </Dialog>
                   )}
-
                 </ListItem>
               ))}
             </List>
