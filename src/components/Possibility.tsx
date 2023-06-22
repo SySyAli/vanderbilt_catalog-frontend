@@ -9,36 +9,43 @@ import { IconButton, List, ListItem } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
-import { useState } from 'preact/hooks';
-import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
-import { possibilityArray, coursesSelectedArray, idFORPossibility } from './atoms';
+import { possibilityArray, coursesSelectedArray } from './atoms';
 import { CourseSearchDialog } from './CourseSearchDialog';
 import { CourseViewDialog } from './CourseViewDialog';
 
 export function Possibility({ id, handleRemovePossibility }: any) {
   const [possibilityArraySem, setPossibilityArray] = useRecoilState(possibilityArray);
-  const [coursesSelected, setCoursesSelected] = useState<any>([]);
+  const [coursesSelected, setCoursesSelected] = useRecoilState(coursesSelectedArray);
+  const possibilityCoursesSelected = coursesSelected[id] || [];
 
   const handleSelectedCourse = (course: any) => {
     console.log(course);
     // prevent duplicates
-    if (coursesSelected.some((c: any) => c._id === course._id)) {
+    if (possibilityCoursesSelected.some((c: any) => c._id === course._id)) {
       return;
     } else {
-      setCoursesSelected([...coursesSelected, course]);
+      setCoursesSelected((prevCoursesSelected: any) => ({
+        ...prevCoursesSelected,
+        [id]: [...possibilityCoursesSelected, course],
+      }));
     }
   };
 
   const handleRemoveCourse = (removeCourse: any) => {
     // remove course from coursesSelected
-    setCoursesSelected((oldValues: any) => {
-      return oldValues.filter((course: any) => course !== removeCourse);
-    });
+    setCoursesSelected((prevCoursesSelected: any) => ({
+      ...prevCoursesSelected,
+      [id]: prevCoursesSelected[id].filter((course: any) => course !== removeCourse),
+    }));
   };
 
   const removePossibility = () => {
-    setPossibilityArray((oldArray: any) => oldArray.filter((possibility: number) => possibility !== id));
+    console.log(possibilityArraySem);
+    setPossibilityArray((oldArray: any) =>
+      oldArray.filter((possibility: number) => possibility !== id),
+    );
     handleRemovePossibility(id);
   };
 
@@ -46,7 +53,7 @@ export function Possibility({ id, handleRemovePossibility }: any) {
     <div>
       <Box sx={{ backgroundColor: '#E4E4E4', width: 'fit-content' }} m={1} p={1}>
         <Stack direction="column" alignItems="center" justify="center" spacing={2}>
-          <List>
+          <List alignItems="center" justify="center">
             <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
               <IconButton onClick={removePossibility}>
                 <CloseIcon />
@@ -54,8 +61,8 @@ export function Possibility({ id, handleRemovePossibility }: any) {
               Possibility {id}
             </Typography>
 
-            {coursesSelected ? (
-              coursesSelected.map((course: any) => {
+            {possibilityCoursesSelected.length > 0 ? (
+              possibilityCoursesSelected.map((course: any) => {
                 return (
                   <ListItem key={course._id}>
                     <CourseViewDialog course={course} />
@@ -67,7 +74,7 @@ export function Possibility({ id, handleRemovePossibility }: any) {
               })
             ) : (
               <ListItem>
-                <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
                   No courses selected
                 </Typography>
               </ListItem>

@@ -8,7 +8,7 @@ import { Dialog, DialogTitle, DialogContent, TextField, ListItemButton } from '@
 import { List, ListItem, CircularProgress, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
-import { useState, useEffect } from 'preact/hooks';
+import { useEffect } from 'preact/hooks';
 import { useRecoilState } from 'recoil';
 
 import { CourseViewDialog } from './CourseViewDialog';
@@ -26,17 +26,19 @@ interface Course {
 }
 */
 export function CourseSearchDialog({ handleSelectedCourse }: any) {
-  
   const [open, setOpen] = useRecoilState(openCourseDialog);
   const [searchText, setSearchText] = useRecoilState(searchTextDialog);
   const [apiResults, setApiResults] = useRecoilState(apiResultsDialog);
   const [loading, setLoading] = useRecoilState(loadingDialog);
-  
+
   const handleOpenDialog = () => {
     setOpen(true);
   };
 
   const handleCloseDialog = () => {
+    setSearchText('');
+    setApiResults([]);
+    setLoading(false);
     setOpen(false);
   };
   // to be implemented using recoil...

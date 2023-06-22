@@ -7,7 +7,7 @@ const possibilityArray = atom<any>({
 
 const coursesSelectedArray = atom<any>({
   key: 'coursesSelectedState',
-  default: [],
+  default: {},
 });
 
 const selectedCourseinDialog = atom<any>({
@@ -15,10 +15,6 @@ const selectedCourseinDialog = atom<any>({
   default: [],
 });
 
-const idFORPossibility = atom<any>({
-  key: 'idFORPossibilityState',
-  default: null,
-});
 
 const courseDialogOpeninDialog = atom<boolean>({
   key: 'courseDialogOpenState',
@@ -48,7 +44,6 @@ const loadingDialog = atom<boolean>({
 
 export {
   possibilityArray,
-  idFORPossibility,
   coursesSelectedArray,
   selectedCourseinDialog,
   courseDialogOpeninDialog,

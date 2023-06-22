@@ -5,7 +5,6 @@ import { Semester } from './components/Semester';
 
 // TODO: Add State Management Library (TBD)
 // TODO: Fix all of the states
-// TODO: fix the remove possibility function
 // TODO: Add hours to semester (user input)
 // TODO: Figure out way to generate semester (F22, S22, F23, S23, etc.)
 // TODO: Figure out way to display and generate multiple semesters (semester option button)
