@@ -8,6 +8,7 @@ import {
   CircularProgress,
   IconButton,
   DialogActions,
+  Typography,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
@@ -74,6 +75,8 @@ export function CourseSearchDialog() {
     fetchData();
   }, [searchText]);
 
+  // add the selected course to a semester list
+
   return (
     <div>
       <Button onClick={handleOpenDialog} variant="outlined">
@@ -108,7 +111,11 @@ export function CourseSearchDialog() {
               {apiResults.map((result: any) => (
                 <ListItem key={result._id}>
                   <ListItemButton>
-                    <IconButton onClick={handleCloseDialog} variant="outlined" aria-label="add-course">
+                    <IconButton
+                      onClick={handleCloseDialog}
+                      variant="outlined"
+                      aria-label="add-course"
+                    >
                       <AddIcon />
                     </IconButton>
                   </ListItemButton>
@@ -118,24 +125,47 @@ export function CourseSearchDialog() {
                   </ListItemButton>
 
                   {selectedCourse && (
-                    <Dialog open={courseDialogOpen} onClose={handleCloseCourseDialog}>
+                    <Dialog open={courseDialogOpen} onClose={handleCloseCourseDialog} spacing={2}>
                       <DialogTitle>Course Information</DialogTitle>
                       <DialogContent>
-                        <h1>{selectedCourse.code + ': ' + selectedCourse.name}</h1>
-                        <h2>{'Department: ' + selectedCourse.department}</h2>
-                        <h2>{'Hours: ' + selectedCourse.hours}</h2>
-                        <p>{'Description: ' + selectedCourse.description}</p>
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          sx={{ flexGrow: 1, fontWeight: 'bold' }}
+                        >
+                          {selectedCourse.code + ': ' + selectedCourse.name}
+                        </Typography>
+                        <Typography
+                          variant="h6"
+                          component="div"
+                          sx={{ flexGrow: 1}}
+                        >
+                          {'Department: ' + selectedCourse.department}
+                        </Typography>
+                        <Typography
+                          variant="h6"
+                          component="div"
+                          sx={{ flexGrow: 1}}
+                        >
+                          {'Hours: ' + selectedCourse.hours}
+                        </Typography>
+                        <Typography
+                          variant="body1"
+                          component="div"
+                          sx={{ flexGrow: 1}}
+                        >
+                          {'Description: ' + selectedCourse.description}
+                        </Typography>
                         {/* Display additional course information here */}
                       </DialogContent>
                       <DialogActions>
-                        <Button variant="outlined" onClick={handleCloseCourseDialog}>Close</Button>
+                        <Button variant="outlined" onClick={handleCloseCourseDialog}>
+                          Close
+                        </Button>
                       </DialogActions>
                     </Dialog>
                   )}
 
-                  <ListItemSecondaryAction>
-                    {/* Additional actions for each result */}
-                  </ListItemSecondaryAction>
                 </ListItem>
               ))}
             </List>
