@@ -10,7 +10,6 @@ import {
   ListItemText,
   CircularProgress,
   IconButton,
-  DialogActions,
   Typography,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -27,7 +26,7 @@ interface Course {
   description: String;
 }
 */
-export function CourseSearchDialog({handleSelectedCourse}: any) {
+export function CourseSearchDialog({ handleSelectedCourse }: any) {
   const [open, setOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [apiResults, setApiResults] = useState([]);
@@ -141,10 +140,15 @@ export function CourseSearchDialog({handleSelectedCourse}: any) {
                   <ListItemButton onClick={() => handleResultClick(result)}>
                     <ListItemText primary={result.code + ': ' + result.name} />
                   </ListItemButton>
-
+                
                   {selectedCourse && (
                     <Dialog open={courseDialogOpen} onClose={handleCloseCourseDialog} spacing={2}>
-                      <DialogTitle>Course Information</DialogTitle>
+                      <DialogTitle id="dialog-title">
+                        <IconButton onClick={handleCloseCourseDialog} aria-label="close-dialog">
+                          <CloseIcon />
+                        </IconButton>
+                        Course Information
+                      </DialogTitle>
                       <DialogContent>
                         <Typography
                           variant="h5"
@@ -164,11 +168,6 @@ export function CourseSearchDialog({handleSelectedCourse}: any) {
                         </Typography>
                         {/* Display additional course information here */}
                       </DialogContent>
-                      <DialogActions>
-                        <Button variant="outlined" onClick={handleCloseCourseDialog}>
-                          Close
-                        </Button>
-                      </DialogActions>
                     </Dialog>
                   )}
                 </ListItem>

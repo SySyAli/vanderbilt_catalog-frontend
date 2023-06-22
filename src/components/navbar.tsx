@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 
 export default function NavBar() {
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" sx={{ backgroundColor: '#CFAE70' }}>
       <Toolbar>
         <Button color="inherit" href="/">
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

@@ -1,71 +1,45 @@
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import { CourseSearchDialog } from './CourseSearchDialog';
-import Typography from '@mui/material/Typography';
+import { Typography, Button, Box, Stack } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'preact/hooks';
-import { IconButton, List, ListItem } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Possibility } from './possibility';
+
+// add functionality to remove possibility
 
 export function Semester() {
-  const [coursesSelected, setCoursesSelected] = useState<any>([]);
+  const [possibillityArray, setPossibillityArray] = useState<any>([]);
 
-  const handleSelectedCourse = (course: any) => {
-    console.log(course);
-    console.log(coursesSelected)
-    // prevent duplicates
-    
-    if (coursesSelected.some((c: any) => c._id === course._id)) {
-      console.log('Course already selected');
-      return;
-    } else {
-      setCoursesSelected([...coursesSelected, course]);
-    }
+  // random id generator for possibility
+  const randomID = () => {
+    return Math.floor(Math.random() * 1000000000);
   };
 
-  const handleRemoveCourse = (removeCourse: any) => {
-    // remove course from coursesSelected
-    setCoursesSelected((oldValues: any) => {
-      return oldValues.filter((course: any) => course !== removeCourse);
+  const removePossibility = (removePossibility: any) => {
+    // remove possibility from possibillityArray based upon ID from state in the possibility component
+    setPossibillityArray((oldValues: any) => {
+      return oldValues.filter((possibility: any) => possibility.props.id !== removePossibility);
     });
   };
 
-  // TODO: add same course dialog box to this as well (make it a component)
-  // TODO: Add hours
+  const handleAddPossibility = () => {
+    setPossibillityArray([
+      ...possibillityArray,
+      <Possibility id={randomID()} removePossibility={removePossibility} />,
+    ]);
+    console.log(possibillityArray);
+  };
+
   return (
     <div>
-      <Box sx={{ backgroundColor: '#DCDCDC' }} m={1} pt={1} pb={1}>
+      <Box sx={{ backgroundColor: '#E0D5C0', width: 'fit-content' }} m={1} p={1}>
         <Stack direction="column" alignItems="center" justify="center" spacing={2}>
           <Typography variant="h4" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
             Semester Date
           </Typography>
-
-          <List>
-            <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-              Course Selection
-            </Typography>
-
-            {coursesSelected ? (
-              coursesSelected.map((course: any) => {
-                return (
-                  <ListItem key={course._id}>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                      {course.code + ': ' + course.name}
-                    </Typography>
-                    <IconButton onClick={() => handleRemoveCourse(course)}>
-                      <CloseIcon />
-                    </IconButton>
-                  </ListItem>
-                );
-              })
-            ) : (
-              <ListItem>
-                <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-                  No courses selected
-                </Typography>
-              </ListItem>
-            )}
-          </List>
-          <CourseSearchDialog handleSelectedCourse={handleSelectedCourse} />
+          {possibillityArray}
+          <Button onClick={handleAddPossibility} variant="outlined">
+            <AddIcon />
+            Add Possibility
+          </Button>
         </Stack>
       </Box>
     </div>
