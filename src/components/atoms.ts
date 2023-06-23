@@ -1,5 +1,10 @@
 import { atom } from 'recoil';
 
+const semesterArray = atom<any>({
+  key: 'semesterState',
+  default: [],
+});
+
 const possibilityArray = atom<any>({
   key: 'possibilityState',
   default: [],
@@ -43,6 +48,7 @@ const loadingDialog = atom<boolean>({
 });
 
 export {
+  semesterArray,
   possibilityArray,
   coursesSelectedArray,
   selectedCourseinDialog,

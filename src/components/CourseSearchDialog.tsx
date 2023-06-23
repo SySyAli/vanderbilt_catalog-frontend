@@ -53,6 +53,10 @@ export function CourseSearchDialog({ handleSelectedCourse }: any) {
     setSearchText(event.target.value);
   };
 
+  const generateRandomNum = () => {
+    return Math.floor(Math.random() * 1000000);
+  };
+
   useEffect(() => {
     if (!open) {
       setSearchText('');
@@ -110,6 +114,7 @@ export function CourseSearchDialog({ handleSelectedCourse }: any) {
             onChange={handleSearchTextChange}
             fullWidth
             autoFocus
+            id={generateRandomNum().toString()}
           />
           {loading ? (
             <CircularProgress />
