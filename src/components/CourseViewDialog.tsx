@@ -15,7 +15,7 @@ import { selectedCourseinDialog, courseDialogOpeninDialog } from './atoms';
 export function CourseViewDialog({ course }: any) {
   const [selectedCourse, setSelectedCourse] = useRecoilState<any>(selectedCourseinDialog);
   const [courseDialogOpen, setCourseDialogOpen] = useRecoilState(courseDialogOpeninDialog);
-  
+
   const handleResultClick = (course: any) => {
     setSelectedCourse(course);
     setCourseDialogOpen(true);
@@ -37,9 +37,20 @@ export function CourseViewDialog({ course }: any) {
         </ListItemButton>
 
         {selectedCourse && (
-          <Dialog open={courseDialogOpen} onClose={handleCloseCourseDialog} spacing={2}>
+          <Dialog
+            open={courseDialogOpen}
+            onClose={() => {
+              handleCloseCourseDialog();
+            }}
+            spacing={2}
+          >
             <DialogTitle id="dialog-title">
-              <IconButton onClick={handleCloseCourseDialog} aria-label="close-dialog">
+              <IconButton
+                onClick={() => {
+                  handleCloseCourseDialog();
+                }}
+                aria-label="close-dialog"
+              >
                 <CloseIcon />
               </IconButton>
               Course Information

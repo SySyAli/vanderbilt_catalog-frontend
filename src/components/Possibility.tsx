@@ -15,9 +15,7 @@ import { semesterArray } from './atoms';
 import { CourseSearchDialog } from './CourseSearchDialog';
 import { CourseViewDialog } from './CourseViewDialog';
 
-// TODO: FIX REMOVE POSSIBILITY, IT DOES NOT WORK
-// TODO: FIX ALL OF THE BUTTONS, COURSES ARE NOT BEING ADDED TO RIGHT POSSIBILITY
-export function Possibility({ possibilityId, semesterId, handleRemovePossibility }: any) {
+export function Possibility({ possibilityId, semesterId }: any) {
   console.log('rendering possibility:' + ' ' + possibilityId);
   const [semesterArrayView, setSemesterArrayView] = useRecoilState(semesterArray);
 
@@ -28,11 +26,10 @@ export function Possibility({ possibilityId, semesterId, handleRemovePossibility
   const possibility = semester
     ? semester.possibilities.find((p: any) => p.id === possibilityId)
     : null;
-  console.log(possibility)
-
+  console.log(possibility);
 
   const handleSelectedCourse = (course: any) => {
-    console.log('adding course: ' + course.name)
+    console.log('adding course: ' + course.name + 'to ' + possibilityId);
 
     // Check if the semester and possibility exist
     if (semester && possibility) {
@@ -60,7 +57,7 @@ export function Possibility({ possibilityId, semesterId, handleRemovePossibility
         return updatedArray;
       });
 
-      console.log(semesterArrayView)
+      console.log(semesterArrayView);
     }
   };
 
@@ -101,7 +98,6 @@ export function Possibility({ possibilityId, semesterId, handleRemovePossibility
       return updatedArray;
     });
 
-    handleRemovePossibility(possibilityId);
   };
 
   return (
@@ -110,7 +106,11 @@ export function Possibility({ possibilityId, semesterId, handleRemovePossibility
         <Stack direction="column" alignItems="center" justify="center" spacing={2}>
           <List alignItems="center" justify="center">
             <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-              <IconButton onClick={removePossibility}>
+              <IconButton
+                onClick={() => {
+                  removePossibility();
+                }}
+              >
                 <CloseIcon />
               </IconButton>
               Possibility {Math.trunc(possibilityId / 100000)}
@@ -118,11 +118,15 @@ export function Possibility({ possibilityId, semesterId, handleRemovePossibility
 
             {possibility.courses.length > 0 ? (
               possibility.courses.map((course: any) => {
-                console.log('rendering course: ' + course.name)
+                console.log('rendering course: ' + course.name + 'to' + possibilityId);
                 return (
                   <ListItem key={course._id}>
                     <CourseViewDialog course={course} />
-                    <IconButton onClick={() => handleRemoveCourse(course)}>
+                    <IconButton
+                      onClick={() => {
+                        handleRemoveCourse(course);
+                      }}
+                    >
                       <CloseIcon />
                     </IconButton>
                   </ListItem>
@@ -136,7 +140,11 @@ export function Possibility({ possibilityId, semesterId, handleRemovePossibility
               </ListItem>
             )}
           </List>
-          <CourseSearchDialog handleSelectedCourse={handleSelectedCourse} />
+          <CourseSearchDialog
+            possibilityId={possibilityId}
+            semesterId={semesterId}
+            handleSelectedCourse={handleSelectedCourse}
+          />
         </Stack>
       </Box>
     </div>

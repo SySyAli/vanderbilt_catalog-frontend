@@ -5,6 +5,11 @@ const semesterArray = atom<any>({
   default: [],
 });
 
+const currIDs = atom<any>({
+  key: 'currPossibilityIDState',
+  default: {},
+});
+
 const possibilityArray = atom<any>({
   key: 'possibilityState',
   default: [],
@@ -37,8 +42,18 @@ const searchTextDialog = atom<string>({
   default: '',
 });
 
+const searchTextSearchPage = atom<string>({
+  key: 'searchTextSearchPageState',
+  default: '',
+});
+
 const apiResultsDialog = atom<any>({
   key: 'apiResultsState',
+  default: [],
+});
+
+const apiResultsSeachPage = atom<any>({
+  key: 'apiResultsSearchPageState',
   default: [],
 });
 
@@ -47,8 +62,15 @@ const loadingDialog = atom<boolean>({
   default: false,
 });
 
+const loadingSearchPage = atom<boolean>({
+  key: 'loadingSearchPageState',
+  default: false,
+});
+
+
 export {
   semesterArray,
+  currIDs,
   possibilityArray,
   coursesSelectedArray,
   selectedCourseinDialog,
@@ -57,4 +79,7 @@ export {
   searchTextDialog,
   apiResultsDialog,
   loadingDialog,
+  searchTextSearchPage,
+  apiResultsSeachPage,
+  loadingSearchPage,
 };

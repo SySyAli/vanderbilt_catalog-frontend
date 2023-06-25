@@ -1,8 +1,11 @@
+import 'preact/debug';
 import { render } from 'preact';
-import { Home } from './home.tsx';
 import Router from 'preact-router';
-import { About } from './about.tsx';
 import { RecoilRoot } from 'recoil';
+
+import { Home } from './home.tsx';
+import { About } from './about.tsx';
+import { Search } from './search.tsx';
 
 const Main = () => (
   <div id="app">
@@ -10,6 +13,7 @@ const Main = () => (
       <Router>
         <Home path="/" />
         <About path="/about" />
+        <Search path="/search" />
       </Router>
     </RecoilRoot>
   </div>
