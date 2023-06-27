@@ -2,7 +2,7 @@
  * Semester.tsx
  * Description: This component is used to create a semester object. It contains a semester date and a list of possibilities.
  */
-import { Typography, Button, Stack, IconButton } from '@mui/material';
+import { Typography, Button, Stack, IconButton, Divider } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRecoilState } from 'recoil';
@@ -57,44 +57,102 @@ export function Semester({ id }: any) {
   const removeSemester = () => {
     setSemesterArrayView((oldArray: any) => oldArray.filter((semester: any) => semester.id !== id));
   };
-
-  return (
-    <div>
-      <Stack
-        direction="column"
-        alignItems="stretch"
-        justify="center"
-        wrap="nowrap"
-        spacing={2}
-        m={1}
-        pt={3}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          height:' 100%',
-          flexGrow: 1,
-          width: '18rem',
-          overflow: 'auto',
-          borderRadius: '1rem',
-          border: '1px solid #E4E4E4',
-        }}
-      >
-        <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', mb: 2 }}>
+  /*
+  old title code
+  <Typography variant="h5" pt={1} component="div" sx={{ fontWeight: 'bold' }}>
           {semesterIndex === 0 || semesterIndex === semesterArrayView.length - 1 ? (
             <IconButton
               onClick={() => {
                 removeSemester();
               }}
+              sx={{
+                opacity: 0,
+                '&:hover': {
+                  color: 'red',
+                  opacity: 1,
+                  textAlign: 'right',
+                },
+              }}
             >
               <CloseIcon />
             </IconButton>
           ) : (
-            <></>
+            <IconButton
+              sx={{
+                opacity: 0,
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
           )}
 
           {decodeSemester(semester.num)}
         </Typography>
+*/
+  return (
+    <div
+      style={{
+        border: '1px solid #E4E4E4',
+      }}
+    >
+      <Stack
+        direction="column"
+        alignItems="stretch"
+        justify="center"
+        wrap="nowrap"
+        divider={<Divider orientation="horizontal" flexItem/>}
+        spacing={2}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          height: ' 100%',
+          flexGrow: 1,
+          width: '18rem',
+          overflow: 'auto',
+        }}
+      >
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          spacing={2}
+          sx={{
+            width: '100%',
+            flexWrap: 'wrap',
+          }}
+        >
+          <Typography variant="h5" pt={1} component="div" sx={{ fontWeight: 'bold' }} pl={1}>
+            {decodeSemester(semester.num)}
+          </Typography>
+          {semesterIndex === 0 || semesterIndex === semesterArrayView.length - 1 ? (
+            <IconButton
+              pr={1}
+              onClick={() => {
+                removeSemester();
+              }}
+              sx={{
+                opacity: 1,
+                '&:hover': {
+                  color: 'red',
+                  opacity: 1,
+                  textAlign: 'right',
+                },
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          ) : (
+            <IconButton
+              pr={1}
+              sx={{
+                opacity: 0,
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          )}
+        </Stack>
 
         {semester && semester.possibilities ? (
           semester.possibilities.map((possibilityObj: any) => (
@@ -111,6 +169,7 @@ export function Semester({ id }: any) {
           }}
           variant="outlined"
           startIcon={<AddIcon />}
+          pt={1}
           sx={{ mt: 'auto', width: 'fit-content', justifyContent: 'flex-start' }}
         >
           Add Possibility

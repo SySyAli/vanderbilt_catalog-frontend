@@ -173,9 +173,7 @@ export function FullView({}: any) {
       <Stack
         direction="row"
         alignItems="stretch"
-        spacing={2}
         wrap="nowrap"
-        pt={2}
         height={'100%'}
         sx={{ display: 'flex', flexDirection: 'row', overflowX: 'auto', flexGrow: 1 }}
       >

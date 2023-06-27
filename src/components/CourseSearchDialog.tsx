@@ -150,7 +150,7 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
         aria-describedby="dialog-description"
         fullWidth
       >
-        <DialogTitle id="dialog-title">
+        <DialogTitle id="dialog-title" sx={{ pb: 2 }}>
           <IconButton
             onClick={() => {
               handleCloseDialog();
@@ -181,7 +181,7 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
                   sx={{
                     display: 'flex',
                     flexDirection: 'row',
-                    width: 'fit-content'
+                    width: 'fit-content',
                   }}
                 >
                   <ListItemButton>

@@ -100,73 +100,77 @@ export function Possibility({ possibilityId, semesterId }: any) {
   };
 
   return (
-    <div>
-      <Box
-        sx={{
-          wwidth: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          p: 1,
-          borderRadius: '1rem',
-          border: '1px solid #E4E4E4',
-          mb: 2,
-        }}
-        m={1}
-        p={1}
-      >
-        <Stack direction="column" alignItems="center" justify="center" spacing={2}>
-          <List alignItems="center" justify="center">
-            <Typography variant="body1" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-              <IconButton
-                onClick={() => {
-                  removePossibility();
-                }}
-              >
-                <CloseIcon />
-              </IconButton>
-              Possibility {Math.trunc(possibilityId / 100000)}
-            </Typography>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
 
-            {possibility.courses.length > 0 ? (
-              possibility.courses.map((course: any) => {
-                console.log('rendering course: ' + course.name + 'to' + possibilityId);
-                return (
-                  <ListItem
-                    key={course._id}
-                    sx={{
+        pt: 1,
+        pb: 1,
+        mt: 0,
+      }}
+      m={1}
+      p={1}
+    >
+      <Stack
+        direction="column"
+        alignItems="center"
+        justify="center"
+        wrap="nowrap"
+        spacing={2}
+        sx={{ overflowY: 'scroll', height: '20rem' }}
+      >
+        <List alignItems="center" justify="center">
+          <Typography variant="body1" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+            <IconButton
+              onClick={() => {
+                removePossibility();
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+            Possibility {Math.trunc(possibilityId / 100000)}
+          </Typography>
+          <List
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <CourseSearchDialog
+              possibilityId={possibilityId}
+              semesterId={semesterId}
+              handleSelectedCourse={handleSelectedCourse}
+            />
+          </List>
+          {possibility.courses.length > 0 ? (
+            possibility.courses.map((course: any) => {
+              console.log('rendering course: ' + course.name + 'to' + possibilityId);
+              return (
+                <ListItem key={course._id} sx={{}}>
+                  <CourseViewDialog course={course} />
+                  <IconButton
+                    onClick={() => {
+                      handleRemoveCourse(course);
                     }}
                   >
-                    <CourseViewDialog course={course} />
-                    <IconButton
-                      onClick={() => {
-                        handleRemoveCourse(course);
-                      }}
-                    >
-                      <CloseIcon />
-                    </IconButton>
-                  </ListItem>
-                );
-              })
-            ) : (
-              <ListItem>
-                <Typography
-                  variant="body1"
-                  component="div"
-                  sx={{ flexGrow: 1, fontWeight: 'bold' }}
-                >
-                  No courses selected
-                </Typography>
-              </ListItem>
-            )}
-          </List>
-          <CourseSearchDialog
-            possibilityId={possibilityId}
-            semesterId={semesterId}
-            handleSelectedCourse={handleSelectedCourse}
-          />
-        </Stack>
-      </Box>
-    </div>
+                    <CloseIcon />
+                  </IconButton>
+                </ListItem>
+              );
+            })
+          ) : (
+            <ListItem>
+              <Typography variant="body1" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+                No courses selected
+              </Typography>
+            </ListItem>
+          )}
+        </List>
+      </Stack>
+    </Box>
   );
 }
