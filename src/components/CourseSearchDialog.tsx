@@ -176,7 +176,14 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
           ) : (
             <List>
               {apiResults.map((result: any) => (
-                <ListItem key={result._id}>
+                <ListItem
+                  key={result._id}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    width: 'fit-content'
+                  }}
+                >
                   <ListItemButton>
                     <IconButton
                       onClick={() => {

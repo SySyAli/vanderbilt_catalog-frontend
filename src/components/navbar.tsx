@@ -7,25 +7,33 @@ export default function NavBar() {
   return (
     <div>
       <AppBar
-        position="fixed"
-        sx={{ backgroundColor: '#CFAE70', overflow: 'hidden', overflowX: 'auto' }}
+        position="sticky"
+        sx={{
+          backgroundColor: '#CFAE70',
+          overflow: 'hidden',
+          overflowX: 'auto',
+          fontWeight: 'bold',
+          
+        }}
       >
         <Toolbar>
           <Button color="inherit" href="/">
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="body1" component="div" sx={{ flexGrow: 1, fontWeight: 'bold'  }}>
               Vanderbilt Course Catalog Planner
             </Typography>
           </Button>
           <Button href="/about" color="inherit">
-            About
+            <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
+              About
+            </Typography>
           </Button>
-          <Button href="/search" color="inherit"
-          >
-            Course Catalog
+          <Button href="/search" color="inherit">
+            <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
+              Search
+            </Typography>
           </Button>
         </Toolbar>
       </AppBar>
-      <Toolbar />
     </div>
   );
 }

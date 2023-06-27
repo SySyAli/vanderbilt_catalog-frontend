@@ -27,13 +27,13 @@ export function CourseViewDialog({ course }: any) {
 
   return (
     <div>
-      <ListItem key={course._id}>
+      <ListItem key={course._id} >
         <ListItemButton
           onClick={() => {
             handleResultClick(course);
           }}
         >
-          <ListItemText primary={course.code + ': ' + course.name} />
+          <ListItemText primary={course.code} secondary={course.name} sx={{width:'fit-content'}}/>
         </ListItemButton>
 
         {selectedCourse && (

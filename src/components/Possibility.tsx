@@ -97,15 +97,27 @@ export function Possibility({ possibilityId, semesterId }: any) {
       );
       return updatedArray;
     });
-
   };
 
   return (
     <div>
-      <Box sx={{ backgroundColor: '#E4E4E4', width: 'fit-content' }} m={1} p={1}>
+      <Box
+        sx={{
+          wwidth: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          p: 1,
+          borderRadius: '1rem',
+          border: '1px solid #E4E4E4',
+          mb: 2,
+        }}
+        m={1}
+        p={1}
+      >
         <Stack direction="column" alignItems="center" justify="center" spacing={2}>
           <List alignItems="center" justify="center">
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+            <Typography variant="body1" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
               <IconButton
                 onClick={() => {
                   removePossibility();
@@ -120,7 +132,11 @@ export function Possibility({ possibilityId, semesterId }: any) {
               possibility.courses.map((course: any) => {
                 console.log('rendering course: ' + course.name + 'to' + possibilityId);
                 return (
-                  <ListItem key={course._id}>
+                  <ListItem
+                    key={course._id}
+                    sx={{
+                    }}
+                  >
                     <CourseViewDialog course={course} />
                     <IconButton
                       onClick={() => {
@@ -134,7 +150,11 @@ export function Possibility({ possibilityId, semesterId }: any) {
               })
             ) : (
               <ListItem>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+                <Typography
+                  variant="body1"
+                  component="div"
+                  sx={{ flexGrow: 1, fontWeight: 'bold' }}
+                >
                   No courses selected
                 </Typography>
               </ListItem>

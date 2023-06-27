@@ -1,7 +1,8 @@
-import { IconButton, Stack, Button, Typography } from '@mui/material';
+import { IconButton, Stack, Typography, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { useRecoilState } from 'recoil';
 import { CSVLink } from 'react-csv';
+import DownloadIcon from '@mui/icons-material/Download';
 
 import { Semester } from './Semester';
 import { semesterArray } from './atoms';
@@ -39,9 +40,9 @@ const thisSemester = 2 * thisYear + thisSeason;
 const firstSemester = thisSemester - 2;
 
 console.log(firstSemester);
-let initialSems = Array(5);
+let initialSems = Array(4);
 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 4; i++) {
   initialSems[i] = firstSemester + i;
 }
 console.log(initialSems);
@@ -104,32 +105,80 @@ export function FullView({}: any) {
   });
   console.log('csvData');
   console.log(csvData);
-  // generate name for each semester based upon the current year and season (full, spring)
+
   const addLeftSemester = () => {
+    // check if the generated id is unique, if not generate another one
+    let generatedID = randomID();
+    while (semesterArrayView.some((semester: any) => semester.id === generatedID)) {
+      generatedID = randomID();
+    }
+
     setSemesterArrayView((oldArray: any) => [
-      { id: randomID(), num: oldArray[0].num - 1, possibilities: [] },
+      { id: generatedID, num: oldArray[0].num - 1, possibilities: [] },
       ...oldArray,
     ]);
     console.log(semesterArrayView);
   };
 
   const addRightSemester = () => {
+    // check if the generated id is unique, if not generate another one
+    let generatedID = randomID();
+    while (semesterArrayView.some((semester: any) => semester.id === generatedID)) {
+      generatedID = randomID();
+    }
+
     setSemesterArrayView((oldArray: any) => [
       ...oldArray,
-      { id: randomID(), num: oldArray[oldArray.length - 1].num + 1, possibilities: [] },
+      { id: generatedID, num: oldArray[oldArray.length - 1].num + 1, possibilities: [] },
     ]);
     console.log('add a right semester');
     console.log(semesterArrayView);
   };
 
   return (
-    <div>
-      <Button>
-        <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-          <CSVLink data={csvData} filename={"course_planner.csv"}>To CSV!</CSVLink>
+    <div style={{ display: 'flex', height: '100%' }}>
+      <Fab
+        sx={{
+          position: 'fixed',
+          bottom: (theme) => theme.spacing(2),
+          right: (theme) => theme.spacing(2),
+          backgroundColor: '#E0D5C0',
+        }}
+        variant="extended"
+      >
+        <Typography
+          variant="body1"
+          component="div"
+          sx={{ flexGrow: 1, fontWeight: 'bold', width: 'fit-content' }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            <DownloadIcon />
+            <CSVLink
+              style={{ color: '#000000', textDecoration: 'none' }}
+              data={csvData}
+              filename={'course_planner.csv'}
+            >
+              Excel!
+            </CSVLink>
+          </div>
         </Typography>
-      </Button>
-      <Stack direction="row" alignItems="center" justify="center" spacing={2}>
+      </Fab>
+
+      <Stack
+        direction="row"
+        alignItems="stretch"
+        spacing={2}
+        wrap="nowrap"
+        pt={2}
+        height={'100%'}
+        sx={{ display: 'flex', flexDirection: 'row', overflowX: 'auto', flexGrow: 1 }}
+      >
         <IconButton
           onClick={() => {
             addLeftSemester();
