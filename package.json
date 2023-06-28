@@ -18,7 +18,8 @@
     "preact": "^10.13.2",
     "preact-router": "^4.1.1",
     "react-csv": "^2.2.2",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "recoil-persist": "^5.0.1"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^5.0.0",

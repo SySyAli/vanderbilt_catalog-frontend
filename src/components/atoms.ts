@@ -1,8 +1,16 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+
+const { persistAtom } = recoilPersist({
+  key: 'recoil-persist',
+  storage: localStorage,
+  converter: JSON
+});
 
 const semesterArray = atom<any>({
   key: 'semesterState',
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
 const currIDs = atom<any>({

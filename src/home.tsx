@@ -2,8 +2,8 @@ import NavBar from './components/Navbar';
 import { FullView } from './components/FullView';
 import { CssBaseline } from '@mui/material';
 
-// TODO: Once fully tested ADD local storage persistence
 // TODO: Add github (about page)
+// TODO: Add a CRON Job for the database
 // TODO: START HOSTING
 
 export function Home({}: any) {

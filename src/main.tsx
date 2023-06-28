@@ -4,7 +4,7 @@ import Router from 'preact-router';
 import { RecoilRoot } from 'recoil';
 
 import { Home } from './home.tsx';
-import { About } from './about.tsx';
+import About from './about.tsx';
 import { Search } from './search.tsx';
 
 const Main = () => (

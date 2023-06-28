@@ -64,8 +64,6 @@ export function decodeSemester(semNum: number) {
 export function FullView({}: any) {
   const [semesterArrayView, setSemesterArrayView] = useRecoilState(semesterArray);
 
-  // initialize the semester array view once
-  // TODO: make sure to add local storage once implemented (only do this if the local storage array DNE)
   if (semesterArrayView.length === 0) {
     setSemesterArrayView(
       initialSems.map((semNum: any) => ({
