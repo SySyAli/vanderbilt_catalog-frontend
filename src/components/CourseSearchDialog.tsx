@@ -26,7 +26,7 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
   const [searchText, setSearchText] = useRecoilState(searchTextDialog);
   const [apiResults, setApiResults] = useRecoilState(apiResultsDialog);
   const [loading, setLoading] = useRecoilState(loadingDialog);
-  const [currIDsView, setCurrIDsView] = useRecoilState(currIDs);
+  const [currIDsView, setCurrIDsView] = useRecoilState<any>(currIDs);
   const [semesterArrayView, setSemesterArrayView] = useRecoilState(semesterArray);
 
   const handleOpenDialog = () => {

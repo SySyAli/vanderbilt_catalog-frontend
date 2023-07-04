@@ -62,7 +62,7 @@ export function decodeSemester(semNum: number) {
 }
 
 export function FullView({}: any) {
-  const [semesterArrayView, setSemesterArrayView] = useRecoilState(semesterArray);
+  const [semesterArrayView, setSemesterArrayView] = useRecoilState<any>(semesterArray);
 
   if (semesterArrayView.length === 0) {
     setSemesterArrayView(
