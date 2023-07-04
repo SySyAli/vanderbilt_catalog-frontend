@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { CSVLink } from 'react-csv';
 import DownloadIcon from '@mui/icons-material/Download';
 
-import { Semester } from '../components/Semester';
+import { Semester } from '../components/semester';
 import { semesterArray } from './atoms';
 
 /*
