@@ -55,7 +55,7 @@ const About = ({}: any) => {
         </Typography>
         <Typography variant="h2">Course Data</Typography>
         <Typography variant="h5">
-          The course data for this recieved from the /search endpoint of my Vanderbilt Catalog API.
+          The course data for this is recieved from the /search endpoint of my Vanderbilt Catalog API.
           There is also a GraphQL endpoint. See it's source code and documentation on Github:{' '}
           <a href={'https://github.com/SySyAli/vanderbilt_catalog-api'} target="blank">
             vanderbilt_catalog-api.
