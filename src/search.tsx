@@ -4,9 +4,9 @@ import { useRecoilState } from 'recoil';
 import { useEffect } from 'preact/hooks';
 import CircleIcon from '@mui/icons-material/Circle';
 
-import NavBar from './components/Navbar';
-import { CourseViewDialog } from './components/CourseViewDialog';
-import { apiResultsSeachPage, loadingSearchPage, searchTextSearchPage } from './components/atoms';
+import NavBar from './Components/Navbar';
+import { CourseViewDialog } from './Components/CourseViewDialog';
+import { apiResultsSeachPage, loadingSearchPage, searchTextSearchPage } from './Components/atoms';
 
 export function Search({}: any) {
   const [searchText, setSearchText] = useRecoilState(searchTextSearchPage);

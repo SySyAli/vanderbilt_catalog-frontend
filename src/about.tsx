@@ -1,5 +1,5 @@
 import { Typography, Stack, Avatar } from '@mui/material';
-import NavBar from './components/Navbar';
+import NavBar from './Components/Navbar';
 
 const About = ({}: any) => {
   return (
@@ -20,7 +20,6 @@ const About = ({}: any) => {
           justifyContent="center"
           alignItems="space-between"
           spacing={2}
-          
           sx={{
             flexGrow: 1,
             textAlign: 'center',
@@ -48,8 +47,8 @@ const About = ({}: any) => {
         </Typography>
         <Typography variant="h2">Tech Stack</Typography>
         <Typography variant="h5">
-          This app uses Vite, Preact, and Typescript. For the design and interface, I used
-          Material UI. I used RecoilJS for global state management. See the source code on Github:{' '}
+          This app uses Vite, Preact, and Typescript. For the design and interface, I used Material
+          UI. I used RecoilJS for global state management. See the source code on Github:{' '}
           <a href={'https://github.com/SySyAli/vanderbilt_catalog-frontend'} target="_blank">
             vanderbilt_catalog-frontend.
           </a>

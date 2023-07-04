@@ -7,9 +7,9 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRecoilState } from 'recoil';
 
-import { semesterArray } from './atoms';
-import { Possibility } from './Possibility';
-import { decodeSemester, randomID } from './FullView';
+import { semesterArray } from '../Components/atoms';
+import { Possibility } from '../Components/Possibility';
+import { decodeSemester, randomID } from '../Components/FullView';
 // add functionality to remove possibility
 
 export function Semester({ id }: any) {

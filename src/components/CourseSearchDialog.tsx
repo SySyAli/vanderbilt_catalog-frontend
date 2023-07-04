@@ -11,7 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useEffect } from 'preact/hooks';
 import { useRecoilState } from 'recoil';
 
-import { CourseViewDialog } from './CourseViewDialog';
+import { CourseViewDialog } from '../Components/CourseViewDialog';
 import {
   openCourseDialog,
   searchTextDialog,
@@ -19,7 +19,7 @@ import {
   loadingDialog,
   currIDs,
   semesterArray,
-} from './atoms';
+} from '../Components/atoms';
 
 export function CourseSearchDialog({ possibilityId, semesterId }: any) {
   const [open, setOpen] = useRecoilState(openCourseDialog);

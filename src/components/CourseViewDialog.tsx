@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRecoilState } from 'recoil';
 
-import { selectedCourseinDialog, courseDialogOpeninDialog } from './atoms';
+import { selectedCourseinDialog, courseDialogOpeninDialog } from '../Components/atoms';
 
 export function CourseViewDialog({ course }: any) {
   const [selectedCourse, setSelectedCourse] = useRecoilState<any>(selectedCourseinDialog);
