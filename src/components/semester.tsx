@@ -7,9 +7,9 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRecoilState } from 'recoil';
 
-import { semesterArray } from '../Components/atoms';
-import { Possibility } from '../Components/Possibility';
-import { decodeSemester, randomID } from '../Components/FullView';
+import { semesterArray } from './atoms';
+import { Possibility } from './Possibility';
+import { decodeSemester, randomID } from './FullView';
 // add functionality to remove possibility
 
 export function Semester({ id }: any) {
@@ -100,7 +100,7 @@ export function Semester({ id }: any) {
         alignItems="stretch"
         justify="center"
         wrap="nowrap"
-        divider={<Divider orientation="horizontal" flexItem/>}
+        divider={<Divider orientation="horizontal" flexItem />}
         spacing={2}
         sx={{
           display: 'flex',

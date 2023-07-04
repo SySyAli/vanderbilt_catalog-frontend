@@ -1,5 +1,5 @@
-import NavBar from './Components/Navbar';
-import { FullView } from './Components/FullView';
+import NavBar from './components/Navbar';
+import { FullView } from './components/FullView';
 import { CssBaseline } from '@mui/material';
 
 // TODO: Add a CRON Job for the database

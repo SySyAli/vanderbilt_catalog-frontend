@@ -1,5 +1,5 @@
 import { Typography, Stack, Avatar } from '@mui/material';
-import NavBar from './Components/Navbar';
+import NavBar from '../src/components/Navbar';
 
 const About = ({}: any) => {
   return (

@@ -11,9 +11,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import { useRecoilState } from 'recoil';
 
-import { semesterArray } from '../Components/atoms';
-import { CourseSearchDialog } from '../Components/CourseSearchDialog';
-import { CourseViewDialog } from '../Components/CourseViewDialog';
+import { semesterArray } from './atoms';
+import { CourseSearchDialog } from './CourseSearchDialog';
+import { CourseViewDialog } from './CourseViewDialog';
 
 export function Possibility({ possibilityId, semesterId }: any) {
   console.log('rendering possibility:' + ' ' + possibilityId);
