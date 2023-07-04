@@ -1,4 +1,4 @@
-import NavBar from './components/navbar';
+import NavBar from './components/Navbar';
 import { FullView } from './components/FullView';
 import { CssBaseline } from '@mui/material';
 

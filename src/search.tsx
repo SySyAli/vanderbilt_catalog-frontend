@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { useEffect } from 'preact/hooks';
 import CircleIcon from '@mui/icons-material/Circle';
 
-import NavBar from './components/navbar';
+import NavBar from './components/Navbar';
 import { CourseViewDialog } from './components/CourseViewDialog';
 import { apiResultsSeachPage, loadingSearchPage, searchTextSearchPage } from './components/atoms';
 
