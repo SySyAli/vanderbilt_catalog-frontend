@@ -26,7 +26,7 @@ const About = ({}: any) => {
             textAlign: 'center',
           }}
         >
-          <Avatar>S</Avatar>
+          <Avatar sx={{ bgcolor: '#027148' }}>S</Avatar>
           <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
             Hi! I'm Syed, class of 2026. Thank you for using my app!
           </Typography>

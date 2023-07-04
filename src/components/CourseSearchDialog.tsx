@@ -116,7 +116,7 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
       return;
     } else {
       setLoading(true);
-      fetch(`http://localhost:3000/search/${searchText}`).then((res) => {
+      fetch(`https://vanderbilt-catalog-api.onrender.com/search/${searchText}`).then((res) => {
         res.json().then((data) => {
           if (!ignore) {
             setApiResults(data.courses.hits);
