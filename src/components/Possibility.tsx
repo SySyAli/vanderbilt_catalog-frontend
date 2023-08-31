@@ -122,7 +122,7 @@ export function Possibility({ possibilityId, semesterId }: any) {
         sx={{ overflowY: 'scroll', height: '20rem' }}
       >
         <List alignItems="center" justify="center">
-          <Typography variant="body1" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+          <Typography variant="body1" component="div" sx={{ flexGrow: 1, fontWeight: 'bold', fontFamily: 'Monospace'  }}>
             <IconButton
               onClick={() => {
                 removePossibility();
@@ -150,7 +150,7 @@ export function Possibility({ possibilityId, semesterId }: any) {
             possibility.courses.map((course: any) => {
               console.log('rendering course: ' + course.name + 'to' + possibilityId);
               return (
-                <ListItem key={course._id} sx={{}}>
+                <ListItem key={course._id} sx={{ fontFamily: 'Monospace' }}>
                   <CourseViewDialog course={course} />
                   <IconButton
                     onClick={() => {
@@ -164,7 +164,7 @@ export function Possibility({ possibilityId, semesterId }: any) {
             })
           ) : (
             <ListItem>
-              <Typography variant="body1" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+              <Typography variant="body1" component="div" sx={{ flexGrow: 1, fontWeight: 'bold', fontFamily: 'Monospace'  }}>
                 No courses selected
               </Typography>
             </ListItem>

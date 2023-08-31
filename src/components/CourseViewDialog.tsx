@@ -27,16 +27,18 @@ export function CourseViewDialog({ course }: any) {
 
   return (
     <div>
-      <ListItem key={course._id}>
+      <ListItem key={course._id} sx={{fontFamily: 'Monospace' }}>
         <ListItemButton
           onClick={() => {
             handleResultClick(course);
           }}
         >
           <ListItemText
+            sx={{ width: 'fit-content'}}
             primary={course.code}
+            primaryTypographyProps={{ fontFamily: 'Monospace' }}
             secondary={course.name}
-            sx={{ width: 'fit-content' }}
+            secondaryTypographyProps={{ fontFamily: 'Monospace' }}
           />
         </ListItemButton>
 
@@ -48,7 +50,7 @@ export function CourseViewDialog({ course }: any) {
             }}
             spacing={2}
           >
-            <DialogTitle id="dialog-title">
+            <DialogTitle id="dialog-title" sx={{fontFamily: 'Monospace' }}>
               <IconButton
                 onClick={() => {
                   handleCloseCourseDialog();
@@ -60,16 +62,16 @@ export function CourseViewDialog({ course }: any) {
               Course Information
             </DialogTitle>
             <DialogContent>
-              <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+              <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'bold', fontFamily: 'Monospace'  }}>
                 {selectedCourse.code + ': ' + selectedCourse.name}
               </Typography>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: 'Monospace'  }}>
                 {'Department: ' + selectedCourse.department}
               </Typography>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: 'Monospace'  }}>
                 {'Hours: ' + selectedCourse.hours}
               </Typography>
-              <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
+              <Typography variant="body1" component="div" sx={{ flexGrow: 1, fontFamily: 'Monospace'  }}>
                 {'Description: ' + selectedCourse.description}
               </Typography>
             </DialogContent>

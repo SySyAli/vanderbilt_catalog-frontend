@@ -3,7 +3,7 @@ import { FullView } from './components/FullView';
 import { CssBaseline } from '@mui/material';
 
 // TODO: Add a CRON Job for the database
-// TODO: START HOSTING
+// TODO: ADD HOW TO IN THE ABOUT PAGE
 
 export function Home({}: any) {
   return (

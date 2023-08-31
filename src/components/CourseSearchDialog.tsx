@@ -133,6 +133,7 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
   return (
     <div>
       <Button
+      sx={{borderColor: 'rgb(228, 228, 228)', border: '1px solid #222222', color:'#302b21', fontFamily: 'Monospace' }}
         onClick={() => {
           handleOpenDialog();
         }}
@@ -150,7 +151,7 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
         aria-describedby="dialog-description"
         fullWidth
       >
-        <DialogTitle id="dialog-title" sx={{ pb: 2 }}>
+        <DialogTitle id="dialog-title" sx={{ pb: 2, fontFamily: 'Monospace'  }}>
           <IconButton
             onClick={() => {
               handleCloseDialog();
@@ -182,6 +183,7 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
                     display: 'flex',
                     flexDirection: 'row',
                     width: 'fit-content',
+                    fontFamily: 'Monospace' 
                   }}
                 >
                   <ListItemButton>

@@ -122,7 +122,7 @@ export function Semester({ id }: any) {
             flexWrap: 'wrap',
           }}
         >
-          <Typography variant="h5" pt={1} component="div" sx={{ fontWeight: 'bold' }} pl={1}>
+          <Typography variant="h5" pt={1} component="div" sx={{ fontWeight: 'bold', fontFamily: 'Monospace'  }} pl={1}>
             {decodeSemester(semester.num)}
           </Typography>
           {semesterIndex === 0 || semesterIndex === semesterArrayView.length - 1 ? (
@@ -159,7 +159,7 @@ export function Semester({ id }: any) {
             <Possibility possibilityId={possibilityObj.id} semesterId={id} />
           ))
         ) : (
-          <Typography variant="body2" component="div">
+          <Typography variant="body2" component="div" sx={{fontFamily: 'Monospace' }}>
             No possibilities
           </Typography>
         )}
@@ -170,7 +170,7 @@ export function Semester({ id }: any) {
           variant="outlined"
           startIcon={<AddIcon />}
           pt={1}
-          sx={{ mt: 'auto', width: 'fit-content', justifyContent: 'flex-start' }}
+          sx={{ mt: 'auto', width: 'fit-content', justifyContent: 'flex-start', borderColor: 'rgb(228, 228, 228)', border: '1px solid #222222', color:'#302b21', fontFamily: 'Monospace' }}
         >
           Add Possibility
         </Button>

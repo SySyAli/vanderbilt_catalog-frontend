@@ -134,20 +134,20 @@ export function FullView({}: any) {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100%' }}>
+    <div style={{ display: 'flex', height: '100%', backgroundColor: '#fff5ed' }}>
       <Fab
         sx={{
           position: 'fixed',
           bottom: (theme) => theme.spacing(2),
           right: (theme) => theme.spacing(2),
-          backgroundColor: '#E0D5C0',
+          backgroundColor: '#E0D5C0', fontFamily: 'Monospace' 
         }}
         variant="extended"
       >
         <Typography
           variant="body1"
           component="div"
-          sx={{ flexGrow: 1, fontWeight: 'bold', width: 'fit-content' }}
+          sx={{ flexGrow: 1, fontWeight: 'bold', width: 'fit-content', fontFamily: 'Monospace'  }}
         >
           <div
             style={{
@@ -175,7 +175,8 @@ export function FullView({}: any) {
         height={'100%'}
         sx={{ display: 'flex', flexDirection: 'row', overflowX: 'auto', flexGrow: 1 }}
       >
-        <IconButton
+        <IconButton variant="outlined" sx={{ 
+          borderColor: 'rgb(228, 228, 228)', border: '1px solid', borderRadius: '0px'}}
           onClick={() => {
             addLeftSemester();
           }}
@@ -187,7 +188,8 @@ export function FullView({}: any) {
           <Semester key={semester.id} id={semester.id} />
         ))}
 
-        <IconButton
+        <IconButton variant="outlined" sx={{ 
+          borderColor: 'rgb(228, 228, 228)', border: '1px solid', borderRadius: '0px'}}
           onClick={() => {
             addRightSemester();
           }}

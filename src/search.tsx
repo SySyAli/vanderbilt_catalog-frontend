@@ -41,10 +41,10 @@ export function Search({}: any) {
   }, [searchText]);
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#fff5ed' }}>
       <NavBar />
       <Stack direction="column" alignItems="center" justify="center" spacing={2} p={4}>
-        <Typography variant="h2" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+        <Typography variant="h2" component="div" sx={{ flexGrow: 1, fontWeight: 'bold', fontFamily: 'monospace' }}>
           Search
         </Typography>
         <TextField
@@ -53,8 +53,9 @@ export function Search({}: any) {
           onChange={handleSearchTextChange}
           fullWidth
           autoFocus
+          sx={{fontFamily: 'monospace' }}
         />
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold', fontFamily: 'monospace' }}>
           Click on a course to view more information!
         </Typography>
         {loading ? (
