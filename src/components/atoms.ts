@@ -75,6 +75,15 @@ const loadingSearchPage = atom<boolean>({
   default: false,
 });
 
+const aboutModalStatus = atom<boolean>({
+  key: 'aboutModalStatusState',
+  default: false,
+});
+
+const courseSearchDialogStatus = atom<boolean>({
+  key: 'courseSearchDialogStatusState',
+  default: false,
+});
 
 export {
   semesterArray,
@@ -90,4 +99,6 @@ export {
   searchTextSearchPage,
   apiResultsSeachPage,
   loadingSearchPage,
+  aboutModalStatus,
+  courseSearchDialogStatus
 };

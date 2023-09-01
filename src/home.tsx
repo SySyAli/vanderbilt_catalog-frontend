@@ -1,4 +1,3 @@
-import NavBar from './components/Navbar';
 import { FullView } from './components/FullView';
 import { CssBaseline } from '@mui/material';
 
@@ -9,7 +8,6 @@ export function Home({}: any) {
   return (
     <div style={{ height: '100vh' }}>
       <CssBaseline />
-      <NavBar />
       <FullView />
     </div>
   );

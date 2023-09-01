@@ -4,17 +4,32 @@ import Router from 'preact-router';
 import { RecoilRoot } from 'recoil';
 
 import { Home } from './home.tsx';
-import About from './about.tsx';
+import { AboutModal } from './components/AboutModal.tsx';
 import { Search } from './search.tsx';
+import NavBar from './components/Navbar.tsx';
+import { SearchModal } from './components/SearchModal.tsx';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: 'monospace',
+    },
+  },
+});
 
 const Main = () => (
-  <div id="app">
+  <div id="app" style={{}}>
     <RecoilRoot>
-      <Router>
-        <Home path="/" />
-        <About path="/about" />
-        <Search path="/search" />
-      </Router>
+      <ThemeProvider theme={theme}>
+        <NavBar />
+        <Router>
+          <Home path="/" />
+          <Search path="/search" />
+        </Router>
+        <AboutModal />
+        <SearchModal />
+      </ThemeProvider>
     </RecoilRoot>
   </div>
 );

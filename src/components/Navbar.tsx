@@ -1,9 +1,23 @@
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { useRecoilState } from 'recoil';
+import { aboutModalStatus, courseSearchDialogStatus } from './atoms';
+
 
 export default function NavBar() {
+  const [aboutModal, setAboutModal] = useRecoilState(aboutModalStatus);
+  const [courseSearchDialogStatusView, setCourseSearchDialogStatusView] =
+    useRecoilState(courseSearchDialogStatus);
+
+  const handleOpenCourseSearchDialog = () => {
+    console.log(courseSearchDialogStatusView)
+    setCourseSearchDialogStatusView(true);
+  };
+  const handleOpenAboutModal = () => {
+    console.log(aboutModal)
+    setAboutModal(true);
+  };
+
   return (
     // create a header that uses a flexbox to display the title and buttons without using MUI
     <div style='padding-top: 10px; padding-left: 30px; padding-bottom: 10px; background-color: #222222; color: #E0D5C0;'>
@@ -12,12 +26,12 @@ export default function NavBar() {
               Vanderbilt Course Catalog Planner
             </Typography>
           </Button>
-          <Button href="/about" color="inherit">
+          <Button onClick={handleOpenAboutModal} color="inherit">
             <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: 'Monospace' }}>
               About
             </Typography>
           </Button>
-          <Button href="/search" color="inherit">
+          <Button onClick={handleOpenCourseSearchDialog} color="inherit">
             <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: 'Monospace' }}>
               Search
             </Typography>
@@ -25,38 +39,3 @@ export default function NavBar() {
     </div>
   );
 }
-
-/*
-<div>
-      <AppBar
-        position="sticky"
-        sx={{
-          backgroundColor: '#FFFFFF',
-          color: '#000000',
-          overflow: 'hidden',
-          overflowX: 'auto',
-          fontWeight: 'bold',
-          border: '1px solid var(--accents-2)',
-          
-        }}
-      >
-        <Toolbar>
-          <Button color="inherit" href="/">
-            <Typography variant="body1" component="div" sx={{ flexGrow: 1, fontWeight: 'bold'  }}>
-              Vanderbilt Course Catalog Planner
-            </Typography>
-          </Button>
-          <Button href="/about" color="inherit">
-            <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
-              About
-            </Typography>
-          </Button>
-          <Button href="/search" color="inherit">
-            <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
-              Search
-            </Typography>
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-*/

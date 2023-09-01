@@ -4,11 +4,18 @@
  */
 
 import Button from '@mui/material/Button';
-import { Dialog, DialogTitle, DialogContent, TextField, ListItemButton } from '@mui/material';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  TextField,
+  ListItemButton,
+  Typography,
+} from '@mui/material';
 import { List, ListItem, CircularProgress, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
-import { useEffect } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import { useRecoilState } from 'recoil';
 
 import { CourseViewDialog } from '../components/CourseViewDialog';
@@ -21,6 +28,8 @@ import {
   semesterArray,
 } from './atoms';
 
+import PaginationComponent from './PaginationComponent';
+
 export function CourseSearchDialog({ possibilityId, semesterId }: any) {
   const [open, setOpen] = useRecoilState(openCourseDialog);
   const [searchText, setSearchText] = useRecoilState(searchTextDialog);
@@ -28,6 +37,12 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
   const [loading, setLoading] = useRecoilState(loadingDialog);
   const [currIDsView, setCurrIDsView] = useRecoilState<any>(currIDs);
   const [semesterArrayView, setSemesterArrayView] = useRecoilState(semesterArray);
+  const itemsPerPage = 5; // Number of items to display per page
+  const [currentPage, setCurrentPage] = useState(1);
+  let totalPages;
+  let indexOfLastItem;
+  let indexOfFirstItem;
+  let currentItems;
 
   const handleOpenDialog = () => {
     console.log('opening course search button of: ' + possibilityId + ' ' + semesterId);
@@ -120,6 +135,7 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
         res.json().then((data) => {
           if (!ignore) {
             setApiResults(data.courses.hits);
+            setCurrentPage(1);
             setLoading(false);
           }
         });
@@ -130,10 +146,30 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
     }
   }, [searchText]);
 
+  // pagination code
+  totalPages = Math.ceil(apiResults.length / itemsPerPage);
+  indexOfLastItem = currentPage * itemsPerPage;
+  indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  currentItems = apiResults.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (event: any, page: any) => {
+    setCurrentPage(page);
+    console.log(event);
+    // Recalculate these values when the page changes
+    indexOfLastItem = page * itemsPerPage;
+    indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    currentItems = apiResults.slice(indexOfFirstItem, indexOfLastItem);
+  };
+
   return (
     <div>
       <Button
-      sx={{borderColor: 'rgb(228, 228, 228)', border: '1px solid #222222', color:'#302b21', fontFamily: 'Monospace' }}
+        sx={{
+          borderColor: 'rgb(228, 228, 228)',
+          border: '1px solid #222222',
+          color: '#302b21',
+          fontFamily: 'Monospace',
+        }}
         onClick={() => {
           handleOpenDialog();
         }}
@@ -151,7 +187,7 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
         aria-describedby="dialog-description"
         fullWidth
       >
-        <DialogTitle id="dialog-title" sx={{ pb: 2, fontFamily: 'Monospace'  }}>
+        <DialogTitle id="dialog-title" sx={{ pb: 2, fontFamily: 'Monospace' }}>
           <IconButton
             onClick={() => {
               handleCloseDialog();
@@ -160,7 +196,7 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
           >
             <CloseIcon />
           </IconButton>
-          Add a Course
+          Course Search
         </DialogTitle>
 
         <DialogContent id="dialog-description">
@@ -175,33 +211,51 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
           {loading ? (
             <CircularProgress />
           ) : (
-            <List>
-              {apiResults.map((result: any) => (
-                <ListItem
-                  key={result._id}
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    width: 'fit-content',
-                    fontFamily: 'Monospace' 
-                  }}
-                >
-                  <ListItemButton>
-                    <IconButton
-                      onClick={() => {
-                        handleAddCourse(result);
+            <div>
+              <List>
+                {apiResults.length > 0 ? (
+                  currentItems.map((result: any) => (
+                    <ListItem
+                      key={result._id}
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        width: 'fit-content',
+                        fontFamily: 'Monospace',
                       }}
-                      variant="outlined"
-                      aria-label="add-course"
                     >
-                      <AddIcon />
-                    </IconButton>
-                  </ListItemButton>
+                      <ListItemButton>
+                        <IconButton
+                          onClick={() => {
+                            handleAddCourse(result);
+                          }}
+                          variant="outlined"
+                          aria-label="add-course"
+                        >
+                          <AddIcon />
+                        </IconButton>
+                      </ListItemButton>
 
-                  <CourseViewDialog course={result} />
-                </ListItem>
-              ))}
-            </List>
+                      <CourseViewDialog course={result} />
+                    </ListItem>
+                  ))
+                ) : (
+                  <Typography
+                    variant="body1"
+                    component="div"
+                    sx={{ fontFamily: 'Monospace', display: 'flex', justifyContent: 'center' }}
+                  >
+                    NO CURRENT RESULTS
+                  </Typography>
+                )}
+              </List>
+              {apiResults.length > 0 ? 
+              <PaginationComponent
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              /> : <div></div>}
+            </div>
           )}
         </DialogContent>
       </Dialog>

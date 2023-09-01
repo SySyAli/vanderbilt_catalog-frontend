@@ -4,7 +4,6 @@ import { useRecoilState } from 'recoil';
 import { useEffect } from 'preact/hooks';
 import CircleIcon from '@mui/icons-material/Circle';
 
-import NavBar from './components/Navbar';
 import { CourseViewDialog } from './components/CourseViewDialog';
 import { apiResultsSeachPage, loadingSearchPage, searchTextSearchPage } from './components/atoms';
 
@@ -41,8 +40,7 @@ export function Search({}: any) {
   }, [searchText]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#fff5ed' }}>
-      <NavBar />
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: '#fff5ed' }}>
       <Stack direction="column" alignItems="center" justify="center" spacing={2} p={4}>
         <Typography variant="h2" component="div" sx={{ flexGrow: 1, fontWeight: 'bold', fontFamily: 'monospace' }}>
           Search
