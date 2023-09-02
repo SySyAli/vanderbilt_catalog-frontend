@@ -5,10 +5,9 @@ import { RecoilRoot } from 'recoil';
 
 import { Home } from './home.tsx';
 import { AboutModal } from './components/AboutModal.tsx';
-import { Search } from './search.tsx';
 import NavBar from './components/Navbar.tsx';
-import { SearchModal } from './components/SearchModal.tsx';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Search } from './search.tsx';
 
 const theme = createTheme({
   typography: {
@@ -19,16 +18,15 @@ const theme = createTheme({
 });
 
 const Main = () => (
-  <div id="app" style={{}}>
+  <div id="app" style={{ backgroundColor: '#E0D5C0', minHeight:'100vh', height: '100%' }}>
     <RecoilRoot>
       <ThemeProvider theme={theme}>
         <NavBar />
         <Router>
           <Home path="/" />
-          <Search path="/search" />
+          <Search path="search" />
         </Router>
         <AboutModal />
-        <SearchModal />
       </ThemeProvider>
     </RecoilRoot>
   </div>

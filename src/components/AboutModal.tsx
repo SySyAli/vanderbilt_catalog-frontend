@@ -17,14 +17,18 @@ const AboutModal = () => {
         onClose={() => {
           handleCloseModal();
         }}
+        scroll="paper"
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
         fullWidth
       >
-        <DialogTitle id="dialog-title" sx={{ pb: 2, fontFamily: 'Monospace', display: 'flex', flexDirection:'row'  }}>
+        <DialogTitle
+          id="dialog-title"
+          sx={{ pb: 2, fontFamily: 'Monospace', display: 'flex', flexDirection: 'row' }}
+        >
           <IconButton
             onClick={() => {
-                handleCloseModal();
+              handleCloseModal();
             }}
             aria-label="close-dialog"
           >
@@ -35,18 +39,36 @@ const AboutModal = () => {
           </Typography>
         </DialogTitle>
 
-        <DialogContent id="dialog-description" sx={{display: 'flex', flexDirection:'column', justifyContent: 'center'}}>
-          <Typography variant="h6" sx={{ fontWeight: 'bold', fontFamily: 'Monospace', display: 'flex', flexDirection:'row' }}> 
-            <Avatar sx={{ bgcolor: '#027148', p:2, m: 2 }}>S</Avatar>  
+        <DialogContent
+          id="dialog-description"
+          scrolling={'paper'}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            maxHeight: '80vh', // Adjust the maxHeight as needed
+            overflowY: 'auto', // Add vertical scroll when content exceeds maxHeight
+          }}
+        >
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: 'bold',
+              fontFamily: 'Monospace',
+              display: 'flex',
+              flexDirection: 'row',
+            }}
+          >
+            <Avatar sx={{ bgcolor: '#027148', p: 2, m: 2 }}>S</Avatar>
             Hi! I'm Syed, class of 2026. Thank you for using my app!
           </Typography>
 
-          <Typography variant="body1" sx={{ fontFamily: 'Monospace', pt:2 }}>
+          <Typography variant="body1" sx={{ fontFamily: 'Monospace', pt: 2 }}>
             This is a course planner for Vanderbilt University. I created it after seeing the amount
             of '4 year plans' people made for their time at Vandy. I wanted to make a tool that
             would allow people to plan their courses in a more interactive way.
           </Typography>
-          <Typography variant="h6" sx={{ fontFamily: 'Monospace', pb:2, pt:2  }}>
+          <Typography variant="h6" sx={{ fontFamily: 'Monospace', pb: 2, pt: 2 }}>
             Contact Me
           </Typography>
           <Typography variant="body1" sx={{ fontFamily: 'Monospace' }}>
@@ -58,7 +80,7 @@ const AboutModal = () => {
             If there is an issue with the app, please add the issue to Github Issues. Feel free to
             fork the repo and make a pull request if you want to add a feature.
           </Typography>
-          <Typography variant="h6" sx={{ fontFamily: 'Monospace', pt: 2, pb:2 }}>
+          <Typography variant="h6" sx={{ fontFamily: 'Monospace', pt: 2, pb: 2 }}>
             Tech Stack
           </Typography>
           <Typography variant="body1" sx={{ fontFamily: 'Monospace' }}>
@@ -68,7 +90,7 @@ const AboutModal = () => {
               vanderbilt_catalog-frontend.
             </a>
           </Typography>
-          <Typography variant="h6" sx={{ fontFamily: 'Monospace', pt:2}}>
+          <Typography variant="h6" sx={{ fontFamily: 'Monospace', pt: 2 }}>
             Course Data
           </Typography>
           <Typography variant="body1" sx={{ fontFamily: 'Monospace' }}>
@@ -84,5 +106,4 @@ const AboutModal = () => {
   );
 };
 
-
-export {AboutModal};
+export { AboutModal };
