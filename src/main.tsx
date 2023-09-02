@@ -24,7 +24,7 @@ const Main = () => (
         <NavBar />
         <Router>
           <Home path="/" />
-          <Search path="search" />
+          <Search path="/search" />
         </Router>
         <AboutModal />
       </ThemeProvider>
