@@ -3,7 +3,6 @@ import { InstantSearch, SearchBox, Pagination, HitsPerPage } from 'react-instant
 import { useHits } from 'react-instantsearch';
 import Typography from '@mui/material/Typography';
 import 'instantsearch.css/themes/satellite.css';
-import './search.css';
 
 const searchClient = algoliasearch('WD6VZ40OGV', '3797c53026949327da8d97616d2efc7e');
 
