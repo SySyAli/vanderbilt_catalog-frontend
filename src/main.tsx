@@ -1,6 +1,7 @@
 import 'preact/debug';
 import { render } from 'preact';
-import Router from 'preact-router';
+// import Router from 'preact-router';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
 import { Home } from './home.tsx';
@@ -17,15 +18,25 @@ const theme = createTheme({
   },
 });
 
-const Main = () => (
-  <div id="app" style={{ backgroundColor: '#E0D5C0', minHeight:'100vh', height: '100%' }}>
-    <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <NavBar />
+const router = createBrowserRouter([
+  { path: '/', element: <Home /> },
+  { path: '/search', element: <Search /> },
+]);
+
+/*
+
         <Router>
           <Home path="/" />
           <Search path="/search" />
         </Router>
+*/
+
+const Main = () => (
+  <div id="app" style={{ backgroundColor: '#E0D5C0', minHeight: '100vh', height: '100%' }}>
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <NavBar />
+        <RouterProvider router={router} />
         <AboutModal />
       </ThemeProvider>
     </RecoilRoot>

@@ -21,6 +21,7 @@
     "preact-router": "^4.1.1",
     "react-csv": "^2.2.2",
     "react-instantsearch": "^7.0.1",
+    "react-router-dom": "^6.15.0",
     "recoil": "^0.7.7",
     "recoil-persist": "^5.0.1"
   },
