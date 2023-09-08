@@ -1,11 +1,11 @@
-import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch, SearchBox, Pagination, HitsPerPage } from 'react-instantsearch';
-import { useHits } from 'react-instantsearch';
-import Typography from '@mui/material/Typography';
+// import algoliasearch from 'algoliasearch/lite';
+// import { InstantSearch, SearchBox, Pagination, HitsPerPage } from 'react-instantsearch';
+// import { useHits } from 'react-instantsearch';
+// import Typography from '@mui/material/Typography';
 import 'instantsearch.css/themes/satellite.css';
 
-const searchClient = algoliasearch('WD6VZ40OGV', '3797c53026949327da8d97616d2efc7e');
-
+//const searchClient = algoliasearch('WD6VZ40OGV', '3797c53026949327da8d97616d2efc7e');
+/*
 function Hit({ hit, key }: any) {
   return (
     <article
@@ -75,13 +75,14 @@ function CustomHits(props: any) {
     </div>
   );
 }
-
+*/
 function Search({}: any) {
   return (
     <div
       id="main div"
       style="height: 100%; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #E0D5C0;"
     >
+      
       {/*}
       <Typography
         variant="h3"
