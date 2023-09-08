@@ -82,6 +82,7 @@ function Search({}: any) {
       id="main div"
       style="height: 100%; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: #E0D5C0;"
     >
+      {/*}
       <Typography
         variant="h3"
         component="div"
@@ -90,9 +91,7 @@ function Search({}: any) {
         Search
       </Typography>
       <InstantSearch searchClient={searchClient} indexName="vanderbiltcoursecatalogdatabase">
-        {/* Main Div to the InstantSearch Widgets*/}
         <div style="height: 100%; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-          {/* Div to hold the search bar and hit list*/}
           <div style={{ width: '50%' }}>
             <Typography
               variant="h6"
@@ -124,8 +123,9 @@ function Search({}: any) {
               { label: '25 hits per page', value: 25 },
             ]}
           />
-        </Typography>
+        </Typography> 
       </InstantSearch>
+      */ }
     </div>
   );
 }
