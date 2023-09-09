@@ -1,17 +1,9 @@
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link } from 'preact-router/match';
-import { useRecoilState } from 'recoil';
-import { aboutModalStatus } from './atoms';
 
 export default function NavBar() {
-  const [aboutModal, setAboutModal] = useRecoilState(aboutModalStatus);
-  /*
-  const handleOpenAboutModal = () => {
-    console.log(aboutModal);
-    setAboutModal(true);
-  };
-  */
+ 
   return (
     // create a header that uses a flexbox to display the title and buttons without using MUI
     <div style="padding-top: 10px; padding-left: 30px; padding-bottom: 10px; background-color: #222222; color: #E0D5C0;">
