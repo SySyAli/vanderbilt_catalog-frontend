@@ -8,27 +8,20 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  TextField,
-  ListItemButton,
   Typography,
 } from '@mui/material';
-import { List, ListItem, CircularProgress, IconButton } from '@mui/material';
+import { ListItem, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
-import { useEffect, useState } from 'preact/hooks';
 import { useRecoilState } from 'recoil';
 
 import { CourseViewDialog } from '../components/CourseViewDialog';
 import {
   openCourseDialog,
-  searchTextDialog,
-  apiResultsDialog,
-  loadingDialog,
   currIDs,
   semesterArray,
 } from './atoms';
 
-import PaginationComponent from './PaginationComponent';
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, SearchBox, Pagination } from 'react-instantsearch';
 import { useHits } from 'react-instantsearch';
@@ -38,9 +31,6 @@ const searchClient = algoliasearch('WD6VZ40OGV', '3797c53026949327da8d97616d2efc
 
 export function CourseSearchDialog({ possibilityId, semesterId }: any) {
   const [open, setOpen] = useRecoilState(openCourseDialog);
-  const [searchText, setSearchText] = useRecoilState(searchTextDialog);
-  const [apiResults, setApiResults] = useRecoilState(apiResultsDialog);
-  const [loading, setLoading] = useRecoilState(loadingDialog);
   const [currIDsView, setCurrIDsView] = useRecoilState<any>(currIDs);
   const [semesterArrayView, setSemesterArrayView] = useRecoilState(semesterArray);
 
@@ -112,10 +102,6 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
     setCurrIDsView({ possibilityId: null, semesterId: null });
 
     setOpen(true);
-    setSearchText('');
-    setApiResults([]);
-    setLoading(false);
-    setOpen(false);
   };
 
   const handleAddCourse = (course: any) => {
