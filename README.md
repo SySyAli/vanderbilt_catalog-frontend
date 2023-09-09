@@ -11,7 +11,7 @@
 A minimalistic, simple and MODERN Course Catalog Planner and Search for Vanderbilt Students.
 
 ## Preview
-COMING SOON...
+![Animated Preview](https://github.com/SySyAli/vanderbilt_catalog-frontend/assets/35876523/1dfc8a67-7537-426f-9ca6-768d95ff412a)
 
 ## Installation
 To install and run this project, follow these steps:
@@ -19,7 +19,7 @@ To install and run this project, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-repo.git
+   git clone https://github.com/SySyAli/vanderbilt_catalog-frontend.git
    ```
 
 2. Install the dependencies:
@@ -40,7 +40,7 @@ To install and run this project, follow these steps:
 ## Detailed Explanation
 This web app has two primary features: the COURSE PLANNER and SEARCH features. The course planner is meant to help students plan their semester based upon the Vanderbilt Course Catalog. To explain this feature, one can simply add the semesters they are interested in a planning for. After, each semester can contain many possibilities and each possibility can contain multiple course selections. This can all be exported to excel. There is also the search feature, which uses algolia to search through the data.
 
-This is how the data is stored in our app (using recoil for persistent global state):
+This is how an example data object would look.
 ```
 FullView: [ Semester[] ]
 Semester: { id, num, Possibility[] }
