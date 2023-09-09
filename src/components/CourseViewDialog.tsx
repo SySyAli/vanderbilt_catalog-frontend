@@ -13,6 +13,7 @@ import { useRecoilState } from 'recoil';
 import { selectedCourseinDialog, courseDialogOpeninDialog } from './atoms';
 
 export function CourseViewDialog({ course }: any) {
+  // console.log(course)
   const [selectedCourse, setSelectedCourse] = useRecoilState<any>(selectedCourseinDialog);
   const [courseDialogOpen, setCourseDialogOpen] = useRecoilState(courseDialogOpeninDialog);
 

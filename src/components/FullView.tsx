@@ -6,6 +6,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 
 import { Semester } from '../components/semester';
 import { semesterArray } from './atoms';
+import { nanoid } from 'nanoid';
 
 /*
 
@@ -49,7 +50,20 @@ console.log(initialSems);
 
 // random id generator for semester
 export function randomID() {
-  return Math.floor(Math.random() * 1000000000);
+  // return Math.floor(Math.random() * 1000000000);
+  return nanoid();
+}
+
+export function stringToASCII(str: string) {
+  let ascii = 0;
+  for (let i = 0; i < str.length; i++) {
+    if (ascii >= 1000) {
+      break
+    } else {
+      ascii += str.charCodeAt(i);
+    }
+  }
+  return ascii;
 }
 
 export function decodeSemester(semNum: number) {
@@ -140,14 +154,15 @@ export function FullView({}: any) {
           position: 'fixed',
           bottom: (theme) => theme.spacing(2),
           right: (theme) => theme.spacing(2),
-          backgroundColor: '#E0D5C0', fontFamily: 'Monospace' 
+          backgroundColor: '#E0D5C0',
+          fontFamily: 'Monospace',
         }}
         variant="extended"
       >
         <Typography
           variant="body1"
           component="div"
-          sx={{ flexGrow: 1, fontWeight: 'bold', width: 'fit-content', fontFamily: 'Monospace'  }}
+          sx={{ flexGrow: 1, fontWeight: 'bold', width: 'fit-content', fontFamily: 'Monospace' }}
         >
           <div
             style={{
@@ -175,8 +190,13 @@ export function FullView({}: any) {
         height={'100%'}
         sx={{ display: 'flex', flexDirection: 'row', overflowX: 'auto', flexGrow: 1 }}
       >
-        <IconButton variant="outlined" sx={{ 
-          borderColor: 'rgb(228, 228, 228)', border: '1px solid', borderRadius: '0px'}}
+        <IconButton
+          variant="outlined"
+          sx={{
+            borderColor: 'rgb(228, 228, 228)',
+            border: '1px solid',
+            borderRadius: '0px',
+          }}
           onClick={() => {
             addLeftSemester();
           }}
@@ -188,8 +208,13 @@ export function FullView({}: any) {
           <Semester key={semester.id} id={semester.id} />
         ))}
 
-        <IconButton variant="outlined" sx={{ 
-          borderColor: 'rgb(228, 228, 228)', border: '1px solid', borderRadius: '0px'}}
+        <IconButton
+          variant="outlined"
+          sx={{
+            borderColor: 'rgb(228, 228, 228)',
+            border: '1px solid',
+            borderRadius: '0px',
+          }}
           onClick={() => {
             addRightSemester();
           }}

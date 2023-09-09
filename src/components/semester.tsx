@@ -57,38 +57,7 @@ export function Semester({ id }: any) {
   const removeSemester = () => {
     setSemesterArrayView((oldArray: any) => oldArray.filter((semester: any) => semester.id !== id));
   };
-  /*
-  old title code
-  <Typography variant="h5" pt={1} component="div" sx={{ fontWeight: 'bold' }}>
-          {semesterIndex === 0 || semesterIndex === semesterArrayView.length - 1 ? (
-            <IconButton
-              onClick={() => {
-                removeSemester();
-              }}
-              sx={{
-                opacity: 0,
-                '&:hover': {
-                  color: 'red',
-                  opacity: 1,
-                  textAlign: 'right',
-                },
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-          ) : (
-            <IconButton
-              sx={{
-                opacity: 0,
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-          )}
-
-          {decodeSemester(semester.num)}
-        </Typography>
-*/
+  
   return (
     <div
       style={{

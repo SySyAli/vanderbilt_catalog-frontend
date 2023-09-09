@@ -29,6 +29,12 @@ import {
 } from './atoms';
 
 import PaginationComponent from './PaginationComponent';
+import algoliasearch from 'algoliasearch/lite';
+import { InstantSearch, SearchBox, Pagination } from 'react-instantsearch';
+import { useHits } from 'react-instantsearch';
+import 'instantsearch.css/themes/satellite.css';
+
+const searchClient = algoliasearch('WD6VZ40OGV', '3797c53026949327da8d97616d2efc7e');
 
 export function CourseSearchDialog({ possibilityId, semesterId }: any) {
   const [open, setOpen] = useRecoilState(openCourseDialog);
@@ -37,12 +43,62 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
   const [loading, setLoading] = useRecoilState(loadingDialog);
   const [currIDsView, setCurrIDsView] = useRecoilState<any>(currIDs);
   const [semesterArrayView, setSemesterArrayView] = useRecoilState(semesterArray);
-  const itemsPerPage = 5; // Number of items to display per page
-  const [currentPage, setCurrentPage] = useState(1);
-  let totalPages;
-  let indexOfLastItem;
-  let indexOfFirstItem;
-  let currentItems;
+
+  function Hit({ result, key }: any) {
+    return (
+      <ListItem
+        key={key}
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          width: '100%',
+          fontFamily: 'Monospace',
+        }}
+      >
+        <IconButton
+          onClick={() => {
+            handleAddCourse(result);
+          }}
+          variant="outlined"
+          aria-label="add-course"
+          size="small"
+          sx={{ width: 'fit-content', maxWidth: '40px' }}
+        >
+          <AddIcon fontSize="small" />
+        </IconButton>
+
+        <CourseViewDialog course={result} sx={{ width: 'fit-content' }} />
+      </ListItem>
+    );
+  }
+
+  function CustomHits(props: any) {
+    const hits = useHits(props);
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          minHeight: '500px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+        }}
+      >
+        {hits.hits.length > 0 ? (
+          hits.hits.map((hit: any) => <Hit result={hit} key={hit.objectID} />)
+        ) : (
+          <Typography
+            variant="body1"
+            component="div"
+            sx={{ fontFamily: 'Monospace', display: 'flex', justifyContent: 'center' }}
+          >
+            NO CURRENT RESULTS
+          </Typography>
+        )}
+      </div>
+    );
+  }
 
   const handleOpenDialog = () => {
     console.log('opening course search button of: ' + possibilityId + ' ' + semesterId);
@@ -114,53 +170,6 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
     handleCloseDialog();
   };
 
-  const handleSearchTextChange = (event: any) => {
-    setSearchText(event.target.value);
-    console.log('searching for: (onChange)' + searchText);
-    console.log('searching for: ' + event.target.value);
-  };
-
-  const generateRandomNum = () => {
-    return Math.floor(Math.random() * 1000000);
-  };
-
-  useEffect(() => {
-    let ignore = false;
-    if (searchText === '') {
-      setApiResults([]);
-      return;
-    } else {
-      setLoading(true);
-      fetch(`https://vanderbilt-catalog-api.onrender.com/search/${searchText}`).then((res) => {
-        res.json().then((data) => {
-          if (!ignore) {
-            setApiResults(data.courses.hits);
-            setCurrentPage(1);
-            setLoading(false);
-          }
-        });
-      });
-      return () => {
-        ignore = true;
-      };
-    }
-  }, [searchText]);
-
-  // pagination code
-  totalPages = Math.ceil(apiResults.length / itemsPerPage);
-  indexOfLastItem = currentPage * itemsPerPage;
-  indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  currentItems = apiResults.slice(indexOfFirstItem, indexOfLastItem);
-
-  const handlePageChange = (event: any, page: any) => {
-    setCurrentPage(page);
-    console.log(event);
-    // Recalculate these values when the page changes
-    indexOfLastItem = page * itemsPerPage;
-    indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    currentItems = apiResults.slice(indexOfFirstItem, indexOfLastItem);
-  };
-
   return (
     <div>
       <Button
@@ -199,124 +208,37 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
           Course Search
         </DialogTitle>
 
-        <DialogContent id="dialog-description">
-          <TextField
-            label="Search"
-            value={searchText}
-            onChange={handleSearchTextChange}
-            fullWidth
-            autoFocus
-            id={generateRandomNum().toString()}
-          />
-          {loading ? (
-            <CircularProgress />
-          ) : (
-            <div>
-              <List>
-                {apiResults.length > 0 ? (
-                  currentItems.map((result: any) => (
-                    <ListItem
-                      key={result._id}
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        width: 'fit-content',
-                        fontFamily: 'Monospace',
-                      }}
-                    >
-                      <ListItemButton>
-                        <IconButton
-                          onClick={() => {
-                            handleAddCourse(result);
-                          }}
-                          variant="outlined"
-                          aria-label="add-course"
-                        >
-                          <AddIcon />
-                        </IconButton>
-                      </ListItemButton>
-
-                      <CourseViewDialog course={result} />
-                    </ListItem>
-                  ))
-                ) : (
-                  <Typography
-                    variant="body1"
-                    component="div"
-                    sx={{ fontFamily: 'Monospace', display: 'flex', justifyContent: 'center' }}
-                  >
-                    NO CURRENT RESULTS
-                  </Typography>
-                )}
-              </List>
-              {apiResults.length > 0 ? 
-              <PaginationComponent
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-              /> : <div></div>}
+        <DialogContent
+          id="dialog-description"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <InstantSearch searchClient={searchClient} indexName="vanderbiltcoursecatalogMAIN">
+            <div style={{ width: '100%' }}>
+              <Typography
+                variant="h6"
+                component="SearchBox"
+                sx={{ flexGrow: 1, fontFamily: 'Monospace', width: '50%' }}
+              >
+                <SearchBox />
+                <CustomHits />
+                <Typography
+                  variant="body1"
+                  component="Pagination"
+                  sx={{ flexGrow: 1, fontFamily: 'Monospace', pt: 2, width: '100%' }}
+                >
+                  <Pagination />
+                </Typography>
+              </Typography>
             </div>
-          )}
+          </InstantSearch>
         </DialogContent>
       </Dialog>
     </div>
   );
 }
-
-// old useEffect code
-/*
-  // create a useEffect hook to fetch data from the API that also has a cleanup function to prevent a race condition
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    const fetchData = async () => {
-      console.log('searching for (useEffect): ' + searchText);
-      if (searchText !== '') {
-        setLoading(true);
-        try {
-          const url = `http://localhost:3000/search/` + searchText;
-          const response = await fetch(url, { signal: signal });
-          const data = await response.json();
-          setApiResults(data.courses.hits);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        } finally {
-          setLoading(false);
-        }
-      } else {
-        setApiResults([]);
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      controller.abort();
-    };
-  }, [searchText]);
-
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log('searching for (useEffect): ' + searchText);
-      if (searchText !== '') {
-        setLoading(true);
-        try {
-          const url = `http://localhost:3000/search/` + searchText;
-          const response = await fetch(url);
-          const data = await response.json();
-          setApiResults(data.courses.hits);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        } finally {
-          setLoading(false);
-        }
-      } else {
-        setApiResults([]);
-      }
-    };
-
-    fetchData();
-  }, [searchText]);
-*/

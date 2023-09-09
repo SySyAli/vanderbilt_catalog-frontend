@@ -14,6 +14,7 @@ import { useRecoilState } from 'recoil';
 import { semesterArray } from './atoms';
 import { CourseSearchDialog } from './CourseSearchDialog';
 import { CourseViewDialog } from './CourseViewDialog';
+import {stringToASCII} from './FullView';
 
 export function Possibility({ possibilityId, semesterId }: any) {
   console.log('rendering possibility:' + ' ' + possibilityId);
@@ -130,7 +131,7 @@ export function Possibility({ possibilityId, semesterId }: any) {
             >
               <CloseIcon />
             </IconButton>
-            Possibility {Math.trunc(possibilityId / 100000)}
+            Possibility {stringToASCII(possibilityId)}
           </Typography>
           <List
             sx={{

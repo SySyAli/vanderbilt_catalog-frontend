@@ -7,6 +7,7 @@ import { Home } from './home.tsx';
 import { AboutModal } from './components/AboutModal.tsx';
 import NavBar from './components/Navbar.tsx';
 import { Search } from './search.tsx';
+import {About} from './about.tsx';
 
 const Main = () => (
   <div id="app" style={{ backgroundColor: '#E0D5C0', minHeight: '100vh', height: '100%' }}>
@@ -15,6 +16,7 @@ const Main = () => (
       <Router>
         <Home path="/" />
         <Search path="/search" />
+        <About path='about'/>
       </Router>
 
       <AboutModal />
