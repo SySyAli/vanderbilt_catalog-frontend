@@ -101,7 +101,7 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
     console.log('closing course search button of: ' + possibilityId + ' ' + semesterId);
     setCurrIDsView({ possibilityId: null, semesterId: null });
 
-    setOpen(true);
+    setOpen(false);
   };
 
   const handleAddCourse = (course: any) => {
