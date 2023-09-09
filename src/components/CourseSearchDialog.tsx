@@ -211,7 +211,7 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
                 component="SearchBox"
                 sx={{ flexGrow: 1, fontFamily: 'Monospace', width: '50%' }}
               >
-                <SearchBox />
+                <SearchBox name='SearchBox'/>
                 <CustomHits />
                 <Typography
                   variant="body1"
