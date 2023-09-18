@@ -4,23 +4,14 @@
  */
 
 import Button from '@mui/material/Button';
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  Typography,
-} from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, Typography } from '@mui/material';
 import { ListItem, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
 import { useRecoilState } from 'recoil';
 
 import { CourseViewDialog } from '../components/CourseViewDialog';
-import {
-  openCourseDialog,
-  currIDs,
-  semesterArray,
-} from './atoms';
+import { openCourseDialog, currIDs, semesterArray } from './atoms';
 
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, SearchBox, Pagination } from 'react-instantsearch';
@@ -68,8 +59,8 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
       <div
         style={{
           width: '100%',
-          height: '100%',
-          minHeight: '500px',
+          height: 'fit-content',
+          minHeight: '300px',
           display: 'flex',
           flexDirection: 'column',
           gap: '10px',
@@ -211,7 +202,7 @@ export function CourseSearchDialog({ possibilityId, semesterId }: any) {
                 component="SearchBox"
                 sx={{ flexGrow: 1, fontFamily: 'Monospace', width: '50%' }}
               >
-                <SearchBox name='SearchBox'/>
+                <SearchBox name="SearchBox" />
                 <CustomHits />
                 <Typography
                   variant="body1"

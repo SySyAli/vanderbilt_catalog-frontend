@@ -9,8 +9,6 @@ import { semesterArray } from './atoms';
 import { nanoid } from 'nanoid';
 
 /*
-
-semesterView: [Semester[]]
   FullView: [Semester[]]
 	Semester: {id, num, Possibility[]}
 	Possibility: {id, Courses[]}
@@ -50,7 +48,6 @@ console.log(initialSems);
 
 // random id generator for semester
 export function randomID() {
-  // return Math.floor(Math.random() * 1000000000);
   return nanoid();
 }
 
